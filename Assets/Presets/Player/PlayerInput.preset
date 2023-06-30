@@ -1,0 +1,227 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlayerInput
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_Actions
+    value: 
+    objectReference: {fileID: -944628639613478452, guid: 2deed01401118d04684d1ae9763cb58f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: m_NotificationBehavior
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_UIInputModule
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_DeviceLostEvent.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_DeviceRegainedEvent.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ControlsChangedEvent.m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.size
+    value: 9
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+    value: PlayerMovement, Assembly-CSharp
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+    value: OnMoveLeft
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+    value: UnityEngine.Object, UnityEngine
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_ActionId
+    value: cb2330ef-479d-4c1e-beaf-2dc943987f27
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[0].m_ActionName
+    value: Gameplay/Left[/Keyboard/a]
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[1].m_ActionId
+    value: e32bc0de-e8a5-4a66-bef3-6d08c080b83c
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[1].m_ActionName
+    value: Gameplay/Right[/Keyboard/d]
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[2].m_ActionId
+    value: 786acb96-6efb-4f55-b70d-45c9ce70bf4a
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[2].m_ActionName
+    value: Gameplay/Crouch[/Keyboard/s]
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+    value: fdd7540b-fbd7-4118-937d-87edae770933
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+    value: Gameplay/Interact[/Keyboard/e]
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+    value: de60625e-bc7d-4c49-b089-73bef95afb09
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+    value: Gameplay/LightAttack
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+    value: cec12804-3747-4e77-93c2-5c2865c44668
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+    value: Gameplay/HeavyAttack
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+    value: ec1c99c8-6907-45de-a239-817e220671f7
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+    value: Gameplay/Guard
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+    value: de75b206-f3ea-4ed9-88f6-1839bbd56db2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[7].m_ActionName
+    value: Gameplay/Parry
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+    value: f318cdb3-5978-403c-b00c-f2924680ed20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+    value: Gameplay/Airmove
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_NeverAutoSwitchControlSchemes
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_DefaultControlScheme
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_DefaultActionMap
+    value: Gameplay
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SplitScreenIndex
+    value: -1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_Camera
+    value: 
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []
