@@ -1,38 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
-using Unity.VisualScripting;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Player player;
-    public ActionMapManager actionMapManager;
+    [Header("Object References")]
+    [SerializeField] private Player _player;
+    [SerializeField] private ActionMapManager _actionMapManager;
+    [SerializeField] private GameObject _startMenu;
+
+    [Header("First Button Selected")]
+    [SerializeField] private MenuOptionsSelected _optionsSelected;
+    [SerializeField] private GameObject button;
+
     public static bool isPaused;
-    public GameObject startMenu;
 
     public void OnEscape(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
+            //Go to UI map if paused
             if (isPaused)
             {
-                startMenu.SetActive(false);
+                _optionsSelected.SetNewSelected(button);
+                _startMenu.SetActive(false);
                 isPaused = false;
-                //Sets Play to Current Action map
-                actionMapManager.SetActionMap(0);
-                Debug.Log("Menu Disabled");
+                _actionMapManager.SetActionMap(0);
                 return;
             }
 
+            //Return to PLAY map if unpaused
             else if (!isPaused)
             {
-                startMenu.SetActive(true);
+                _startMenu.SetActive(true);
                 isPaused = true;
-                //Sets UI to Current Action map
-                actionMapManager.SetActionMap(1);
-                Debug.Log("Menu Enabled");
+                _actionMapManager.SetActionMap(1);
                 return;
             }
         }

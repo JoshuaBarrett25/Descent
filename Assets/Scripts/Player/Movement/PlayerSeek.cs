@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.InputSystem.DefaultInputActions;
 using UnityEngine.InputSystem;
 using Pathfinding;
 
@@ -26,7 +23,6 @@ public class PlayerSeek : MonoBehaviour
     [SerializeField] private float _speed = 200f;
     [SerializeField] private float _nextWayPointDistance = 3f;
 
-
     public bool interactable;
     public bool inConvo;
 
@@ -38,10 +34,6 @@ public class PlayerSeek : MonoBehaviour
         InvokeRepeating("UpdatePath", 0f, _pathUpdateSeconds);
     }
 
-    private void Awake()
-    { 
-
-    }
 
     public void OnInteract(InputAction.CallbackContext context)
     {

@@ -1,10 +1,5 @@
 using Ink.Runtime;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Threading;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +12,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue")]
     [SerializeField] private GameObject _dialoguePanel;
     [SerializeField] private TextMeshProUGUI _dialogueText;
-    [SerializeField] private float advanceCooldown;
+    [SerializeField] private float _advanceCooldown;
 
     private float _advanceTimer;
 
@@ -29,7 +24,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
-        _advanceTimer = advanceCooldown;
+        _advanceTimer = _advanceCooldown;
         _dialogueIsPlaying = false;
         _dialoguePanel.SetActive(false);
     }
@@ -63,7 +58,7 @@ public class DialogueManager : MonoBehaviour
         _advanceTimer -= Time.deltaTime;
         if (_advanceTimer <= 0f)
         {
-            _advanceTimer = advanceCooldown;
+            _advanceTimer = _advanceCooldown;
             _canAdvance = true;
         }
     }

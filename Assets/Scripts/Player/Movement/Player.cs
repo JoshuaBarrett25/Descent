@@ -1,23 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Layouts;
-using UnityEngine.UIElements;
-using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 { 
-
     [Header("Object References")]
     [SerializeField] private PlayerAbilities _playerAbilities;
+    [SerializeField] private PlayerStats _playerStats;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private Collider2D _wallCheck;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private ActionMapManager _actionMapManager;
+    [SerializeField] private GameObject _gameSavedText;
     public PlayerInput playerInput;
     public GameObject[] uiElements;
 
@@ -26,6 +21,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _dashSpeed;
     [SerializeField] private float _diveSpeed;
+
+    public DialogueTrigger _dialogue;
+    public bool interactRange = false;
+    public bool canSave = false;
 
     private Vector2 input;
     private bool _isFacingRight;
@@ -122,6 +121,27 @@ public class Player : MonoBehaviour
     {
         _dashSpeed = 11f;
         return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer);
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            if (canSave)
+            {
+                _gameSavedText.gameObject.SetActive(true);
+                SaveSystem.SavePlayer(_playerStats);
+            }
+
+
+            if (interactRange)
+            {
+                Debug.Log("Interacted with");
+                _actionMapManager.SetActionMap(2);
+                _dialogue.cameraLookAt.SwitchLookAt(_dialogue.npcLookLocation);
+                DialogueManager.GetInstance().EnterDialogueMode(_dialogue.inkAsset);
+            }
+        }
     }
 
     private void ResetJump()

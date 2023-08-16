@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;    
 
 public class TextFlash : MonoBehaviour
 {
+    [Header("Text To Flash")]
     [SerializeField] private TextMeshProUGUI _textObject;
+
+    [Header("Flash ON/OFF Intervals")]
     [SerializeField] private float _flashInterval;
     [SerializeField] private float _offInterval;
+    
     private float _flashTimer;
     private float _offTimer;
 

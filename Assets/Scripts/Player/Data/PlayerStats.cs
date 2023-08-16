@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
 
         playerPosition.SetPositionAndRotation(new Vector3(data.position[0], data.position[1], data.position[2]), playerPosition.rotation);
 
-        playerPosition.localScale = new Vector3(data.scale, playerPosition.localScale.y, playerPosition.localScale.z);
+        //playerPosition.localScale = new Vector3(data.scale, playerPosition.localScale.y, playerPosition.localScale.z);
 
         playerAbilities.DASHACQUIRED = data.dashAcquired;
         playerAbilities.DBLJUMPACQUIRED = data.dblJumpAcquired;
