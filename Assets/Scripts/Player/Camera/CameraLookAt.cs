@@ -12,6 +12,7 @@ public class CameraLookAt : MonoBehaviour
     //Used for developer debugging
     public bool debugging;
 
+    /*
     public void SwitchLookAt(GameObject location)
     {
         if (debugging)
@@ -33,4 +34,5 @@ public class CameraLookAt : MonoBehaviour
         _playerCamera.Follow = _playerLookAtLocation.transform;
         _playerCamera.LookAt = _playerLookAtLocation.transform;
     }
+    */
 }

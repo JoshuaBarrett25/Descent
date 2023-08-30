@@ -5,7 +5,6 @@ using Pathfinding;
 public class PlayerSeek : MonoBehaviour
 {
     [Header("Player")]
-    public Player player;
     public PlayerActions playerActions;
 
     [Header("Pathfinding")]

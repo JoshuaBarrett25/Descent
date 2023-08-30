@@ -1,30 +1,20 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
-public class Player : MonoBehaviour
-{ 
-    [Header("Object References")]
-    [SerializeField] private PlayerAbilities _playerAbilities;
-    [SerializeField] private PlayerStats _playerStats;
+public class PlayerController : MonoBehaviour
+{
+
+    [SerializeField] private PlayerVariables _playerVariables;
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private ActionMapManager _actionMapManager;
+
+    [Header("Grounded Variables")]
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private Collider2D _wallCheck;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private ActionMapManager _actionMapManager;
-    [SerializeField] private GameObject _gameSavedText;
-    public PlayerInput playerInput;
-    public GameObject[] uiElements;
-
-    [Header("Values")]
-    [SerializeField] private float _jumpingPower = 16f;
-    [SerializeField] private float _speed;
-    [SerializeField] private float _dashSpeed;
-    [SerializeField] private float _diveSpeed;
-
-    public DialogueTrigger _dialogue;
-    public bool interactRange = false;
-    public bool canSave = false;
 
     private Vector2 input;
     private bool _isFacingRight;
@@ -33,6 +23,7 @@ public class Player : MonoBehaviour
     private bool _isJumping;
     private bool _hasDblJumped;
     private bool _isDiving;
+
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -70,10 +61,30 @@ public class Player : MonoBehaviour
 
         if (!_isDashing)
         {
-            _rb.velocity = new Vector2(input.x * _speed, _rb.velocity.y);
+            _rb.velocity = new Vector2(input.x * _playerVariables.speed, _rb.velocity.y);
         }
     }
 
+
+    /// <summary>
+    /// MOVEMENT SECTION
+    /// All functions contained within this section are related to player movement
+    /// (For example, moving, jumping, dashing)
+    /// </summary>
+
+    public bool IsGrounded()
+    {
+        _playerVariables.dashSpeed = 11f;
+        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer);
+    }
+
+    private void ResetJump()
+    {
+        _isDiving = false;
+        _dashed = false;
+        _isJumping = false;
+        _hasDblJumped = false;
+    }
 
     private void Flip(Vector2 input)
     {
@@ -86,17 +97,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// MOVEMENT SECTION
-    /// All functions contained within this section are related to player movement
-    /// (For example, moving, jumping, dashing)
-    /// </summary>
-
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started && IsGrounded())
         {
-            _rb.velocity = new Vector2(_rb.velocity.x, _jumpingPower);
+            _rb.velocity = new Vector2(_rb.velocity.x, _playerVariables.jumpingPower);
         }
 
         if (context.started && _rb.velocity.y > 0f)
@@ -107,72 +112,37 @@ public class Player : MonoBehaviour
 
     public void OnDoubleJump(InputAction.CallbackContext context)
     {
-        if (_playerAbilities.DBLJUMPACQUIRED)
+        if (_playerVariables.DBLJUMPACQUIRED)
         {
             if (context.performed && _isJumping && !_hasDblJumped)
             {
-                _rb.velocity = new Vector2(_rb.velocity.x, _jumpingPower * 0.75f);
+                _rb.velocity = new Vector2(_rb.velocity.x, _playerVariables.jumpingPower * 0.75f);
                 _hasDblJumped = true;
             }
         }
     }
 
-    public bool IsGrounded()
-    {
-        _dashSpeed = 11f;
-        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer);
-    }
-
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (context.canceled)
-        {
-            if (canSave)
-            {
-                _gameSavedText.gameObject.SetActive(true);
-                SaveSystem.SavePlayer(_playerStats);
-            }
-
-
-            if (interactRange)
-            {
-                Debug.Log("Interacted with");
-                _actionMapManager.SetActionMap(2);
-                _dialogue.cameraLookAt.SwitchLookAt(_dialogue.npcLookLocation);
-                DialogueManager.GetInstance().EnterDialogueMode(_dialogue.inkAsset);
-            }
-        }
-    }
-
-    private void ResetJump()
-    {
-        _isDiving = false;
-        _dashed = false;
-        _isJumping = false;
-        _hasDblJumped = false;
-    }
-
     public void OnDive(InputAction.CallbackContext context)
     {
-        if (_playerAbilities.DIVEACQUIRED && context.performed)
+        if (_playerVariables.DIVEACQUIRED && context.performed)
         {
             _isDiving = true;
-            _rb.velocity = new Vector2(_rb.velocity.x, _diveSpeed);
+            _rb.velocity = new Vector2(_rb.velocity.x, _playerVariables.diveSpeed);
         }
     }
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if ((context.performed && _playerAbilities.DASHACQUIRED && !_isDiving && _hasDblJumped && !IsGrounded() && !_dashed) 
-            || 
-            (context.performed && _playerAbilities.DASHACQUIRED && !_isDiving && !_playerAbilities.DBLJUMPACQUIRED && !IsGrounded() & !_dashed))
+        if ((context.performed && _playerVariables.DASHACQUIRED && !_isDiving && _hasDblJumped && !IsGrounded() && !_dashed)
+            ||
+            (context.performed && _playerVariables.DASHACQUIRED && !_isDiving && !_playerVariables.DBLJUMPACQUIRED && !IsGrounded() & !_dashed))
         {
             StartCoroutine(Dashing(1f));
             _dashed = true;
         }
     }
 
-    IEnumerator Dashing (float direction)
+    IEnumerator Dashing(float direction)
     {
         if (!_isFacingRight)
         {
@@ -180,12 +150,12 @@ public class Player : MonoBehaviour
         }
         _isDashing = true;
         _rb.velocity = new Vector2(_rb.velocity.x, 0f);
-        _rb.AddForce(new Vector2(_dashSpeed * direction, 0), ForceMode2D.Impulse);
+        _rb.AddForce(new Vector2(_playerVariables.dashSpeed * direction, 0), ForceMode2D.Impulse);
         float gravity = _rb.gravityScale;
         _rb.gravityScale = 0;
         yield return new WaitForSeconds(0.15f);
         _rb.gravityScale = 0.5f;
-        _rb.AddForce(new Vector2(_dashSpeed * -direction, 0), ForceMode2D.Impulse);
+        _rb.AddForce(new Vector2(_playerVariables.dashSpeed * -direction, 0), ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.15f);
         _isDashing = false;
         _rb.gravityScale = gravity;

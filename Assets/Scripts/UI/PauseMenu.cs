@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class PauseMenu : MonoBehaviour
 {
     [Header("Object References")]
-    [SerializeField] private Player _player;
     [SerializeField] private ActionMapManager _actionMapManager;
     [SerializeField] private GameObject _startMenu;
 

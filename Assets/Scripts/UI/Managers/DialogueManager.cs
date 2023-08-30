@@ -1,13 +1,20 @@
 using Ink.Runtime;
+using System.Transactions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    [Header("Object References")]
+    [SerializeField] private GameObject player;
+    public GameObject currentNpc;
+
     [Header("Scripts")]
     [SerializeField] private ActionMapManager _actionMapManager;
     [SerializeField] private CameraLookAt _cameraLookAt;
+
 
     [Header("Dialogue")]
     [SerializeField] private GameObject _dialoguePanel;
@@ -64,6 +71,29 @@ public class DialogueManager : MonoBehaviour
     }
 
 
+    //Used to calculate the appropriate shadow direction for the dialogue panel
+    //This is based from player position on either the right or left of the interact
+    private void CalculatePlayerPosition()
+    {
+        if (currentNpc != null)
+        {
+            if (player.gameObject.transform.position.x < currentNpc.gameObject.transform.position.x)
+            {
+                _dialoguePanel.GetComponent<Shadow>().effectDistance = new Vector2(50,50);
+            }
+
+            if (player.gameObject.transform.position.x > currentNpc.gameObject.transform.position.x)
+            {
+                _dialoguePanel.GetComponent<Shadow>().effectDistance = new Vector2(-50, 50);
+            }
+
+            if (player.gameObject.transform.position.x == currentNpc.gameObject.transform.position.x)
+            {
+                _dialoguePanel.GetComponent<Shadow>().effectDistance = new Vector2(0, 0);
+            }
+        }
+    }
+
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.performed && _canAdvance)
@@ -82,6 +112,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
+        CalculatePlayerPosition();
         _currentStory = new Story(inkJSON.text);
         _dialogueIsPlaying = true;
         _dialoguePanel.SetActive(true);
@@ -105,7 +136,6 @@ public class DialogueManager : MonoBehaviour
         else
         {
             _actionMapManager.SetActionMap(0);
-            _cameraLookAt.SwitchToPlayerLookAt();
             ExitDialogueMode();
         }
     }

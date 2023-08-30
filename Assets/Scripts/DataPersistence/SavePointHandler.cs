@@ -9,7 +9,7 @@ public class SavePointHandler : MonoBehaviour
     [SerializeField] private GameObject _displayGroup;
 
     [Header("Player")]
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerVariables _playerVariables;
 
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -17,7 +17,7 @@ public class SavePointHandler : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             _displayGroup.SetActive(true);
-            _player.canSave = true;
+            _playerVariables.canSave = true;
         }
     }
 
@@ -26,7 +26,7 @@ public class SavePointHandler : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             _displayGroup.SetActive(false);
-            _player.canSave = false;
+            _playerVariables.canSave = false;
         }
     }
 }

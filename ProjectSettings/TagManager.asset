@@ -9,6 +9,7 @@ TagManager:
   - Hazard
   - Burnable
   - Item
+  - Enemy
   layers:
   - Default
   - TransparentFX

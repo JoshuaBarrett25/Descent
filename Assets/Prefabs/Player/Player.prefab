@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6717196245820636266}
   - component: {fileID: 1971046545586096129}
   - component: {fileID: 5735029227879164704}
-  - component: {fileID: 6074836479603884426}
-  - component: {fileID: 859817373061444609}
-  - component: {fileID: 2930059978410445232}
+  - component: {fileID: 7062395447453937321}
+  - component: {fileID: 4012315859803770822}
+  - component: {fileID: 6442701014219102546}
   - component: {fileID: 7012728402003874380}
   m_Layer: 7
   m_Name: Player
@@ -167,7 +167,7 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6074836479603884426
+--- !u!114 &7062395447453937321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,30 +176,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 2350756027592017223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18db8921a3fd86c4d89a80f7f8e842f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8922c76452649634db78bfac84a39aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAbilities: {fileID: 859817373061444609}
-  playerPosition: {fileID: 7602222809859531744}
   health: 100
-  stamina: 80
-  level: 7
---- !u!114 &859817373061444609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2350756027592017223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 116aef20df29450429d27fa1aae107e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  stamina: 100
+  jumpingPower: 16
+  speed: 5
+  dashSpeed: 11
+  diveSpeed: -15
   DASHACQUIRED: 1
   DBLJUMPACQUIRED: 1
-  DIVEACQUIRED: 0
---- !u!114 &2930059978410445232
+  DIVEACQUIRED: 1
+  dialogue: {fileID: 0}
+  interactRange: 0
+  canSave: 0
+--- !u!114 &4012315859803770822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,26 +200,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 2350756027592017223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6f55f2cee2aabe479f946f787600c69, type: 3}
+  m_Script: {fileID: 11500000, guid: 689311283000a814097d673ac7c936bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerAbilities: {fileID: 859817373061444609}
+  _playerVariables: {fileID: 7062395447453937321}
   _rb: {fileID: 5735029227879164704}
+  _actionMapManager: {fileID: 0}
   _groundCheck: {fileID: 5845383936682984333}
   _wallCheck: {fileID: 4987800372686758407}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &6442701014219102546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350756027592017223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf94b264fb1000048a83dc800671efcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataPersistenceManager: {fileID: 0}
+  _playerVariables: {fileID: 7062395447453937321}
   _actionMapManager: {fileID: 0}
-  playerInput: {fileID: 7012728402003874380}
-  uiElements:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _jumpingPower: 16
-  _speed: 4
-  _dashSpeed: 0
-  _diveSpeed: -12
+  _gameSavedText: {fileID: 0}
 --- !u!114 &7012728402003874380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,8 +258,8 @@ MonoBehaviour:
     m_ActionName: Play/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2930059978410445232}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 4012315859803770822}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -275,8 +274,8 @@ MonoBehaviour:
     m_ActionName: Play/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2930059978410445232}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 4012315859803770822}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnDoubleJump
         m_Mode: 0
         m_Arguments:
@@ -291,8 +290,8 @@ MonoBehaviour:
     m_ActionName: Play/DoubleJump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2930059978410445232}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 4012315859803770822}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnDash
         m_Mode: 0
         m_Arguments:
@@ -367,8 +366,8 @@ MonoBehaviour:
     m_ActionName: UI/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2930059978410445232}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 4012315859803770822}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnDive
         m_Mode: 0
         m_Arguments:
@@ -383,8 +382,8 @@ MonoBehaviour:
     m_ActionName: Play/Dive[/Keyboard/x]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
+      - m_Target: {fileID: 6442701014219102546}
+        m_TargetAssemblyTypeName: PlayerInteractions, Assembly-CSharp
         m_MethodName: OnInteract
         m_Mode: 0
         m_Arguments:

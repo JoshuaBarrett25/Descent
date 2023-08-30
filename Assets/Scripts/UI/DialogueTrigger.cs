@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
+    [SerializeField] private GameObject parent;
+
     [Header("Scripts")]
+    [SerializeField] private DialogueManager _dialogueManager;
     [SerializeField] private ActionMapManager _actionMapManager;
     [SerializeField] public CameraLookAt cameraLookAt;
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerVariables _playerVariables;
 
     [Header("Assets")]
     [SerializeField] public TextAsset inkAsset;
@@ -17,14 +20,13 @@ public class DialogueTrigger : MonoBehaviour
 
     private bool _playerInRange;
 
-
     private void OnTriggerStay2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            _player._dialogue = this;
-            _player.interactRange = _playerInRange = true;
-
+            _playerVariables.dialogue = this;
+            _playerVariables.interactRange = _playerInRange = true;
+            _dialogueManager.currentNpc = parent;
         }
     }
 
@@ -33,8 +35,9 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            _player._dialogue = null;
-            _player.interactRange = _playerInRange = false;
+            _playerVariables.dialogue = null;
+            _playerVariables.interactRange = _playerInRange = false;
+            _dialogueManager.currentNpc = null;
         }
     }
 

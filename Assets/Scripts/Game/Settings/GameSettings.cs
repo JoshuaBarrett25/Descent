@@ -25,4 +25,15 @@ public class GameSettings : MonoBehaviour
 
     [Header("AccessibilityVariables")]
     public bool subtitlesActive = true;
+
+
+    [Header("Global Settings")]
+    private bool mouseCursorVisible = false;
+
+
+    private void Awake()
+    {
+        Cursor.visible = mouseCursorVisible;
+    }
 }
+

@@ -9,7 +9,7 @@ public class SaveFunctions : MonoBehaviour
 
     //Objects to load
     [Header("Objects To Load")]
-    [SerializeField] private PlayerStats _playerStats;
+    //[SerializeField] private PlayerStats _playerStats;
 
     private bool saveLoadedComplete = false;
 
@@ -24,7 +24,7 @@ public class SaveFunctions : MonoBehaviour
         {
             if (_saveLoading._isresumeSelected)
             {
-                _playerStats.LoadPlayer();
+                //_playerStats.LoadPlayer();
                 saveLoadedComplete = true;
             }
             Debug.Log("Previous save file found");

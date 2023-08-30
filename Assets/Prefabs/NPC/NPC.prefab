@@ -264,10 +264,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionMapManager: {fileID: 0}
-  _cameraLookAt: {fileID: 0}
-  _inkAsset: {fileID: 4900000, guid: 9c1549caa9f071d4e99cf60371a3b750, type: 3}
+  cameraLookAt: {fileID: 0}
+  _playerVariables: {fileID: 0}
+  inkAsset: {fileID: 4900000, guid: 9c1549caa9f071d4e99cf60371a3b750, type: 3}
   _visualCue: {fileID: 804080311823105241}
-  _npcLookLocation: {fileID: 0}
+  npcLookLocation: {fileID: 0}
 --- !u!1 &3390997036225826759
 GameObject:
   m_ObjectHideFlags: 0
