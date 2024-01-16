@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerVariables : MonoBehaviour, IDataPersistence
+public class PlayerVariables : MonoBehaviour
 {
     [Header("Stats")]
     public float health;
@@ -32,23 +32,4 @@ public class PlayerVariables : MonoBehaviour, IDataPersistence
     public float jumpInterval;
     public float jumpBufferInterval;
 
-    public void LoadData(GameData data)
-    {
-        this.transform.position = data.playerPosition;
-        this.health = data.health;
-        this.stamina = data.stamina;
-        this.DASHACQUIRED = data.DASHACQUIRED;
-        this.DBLJUMPACQUIRED = data.DBLJUMPACQUIRED;
-        this.DIVEACQUIRED = data.DIVEACQUIRED;
-    }
-
-    public void SaveData(ref GameData data)
-    {        
-        data.playerPosition = this.transform.position;
-        data.health = this.health;
-        data.stamina = this.stamina;
-        data.DASHACQUIRED = this.DASHACQUIRED;
-        data.DBLJUMPACQUIRED = this.DBLJUMPACQUIRED;
-        data.DIVEACQUIRED = this.DIVEACQUIRED;
-    }
 }
