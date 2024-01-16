@@ -20,9 +20,9 @@ TagManager:
   - Ground
   - Player
   - NPC
-  - 
-  - 
-  - 
+  - Walls
+  - Furniture
+  - Door
   - 
   - 
   - 
@@ -46,4 +46,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 2230289357
+    locked: 0
+  - name: Walls
+    uniqueID: 38773313
+    locked: 0
+  - name: Door
+    uniqueID: 2801644457
+    locked: 0
+  - name: Furniture
+    uniqueID: 1939151997
+    locked: 0
+  - name: Frame
+    uniqueID: 3334131523
     locked: 0

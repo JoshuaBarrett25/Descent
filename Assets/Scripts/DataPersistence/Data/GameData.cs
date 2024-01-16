@@ -28,12 +28,8 @@ public class GameData
         playerPosition = Vector3.zero;
         this.health = 100;
         this.stamina = 100;
-        this.jumpingPower = 16f;
-        this.speed = 5f;
-        this.dashSpeed = 11;
-        this.diveSpeed = -15;
-        this.DASHACQUIRED = true;
-        this.DBLJUMPACQUIRED = true;
-        this.DIVEACQUIRED = true;
+        this.DASHACQUIRED = false;
+        this.DBLJUMPACQUIRED = false;
+        this.DIVEACQUIRED = false;
     }
 }
