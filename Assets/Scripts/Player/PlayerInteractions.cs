@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerInteractions : MonoBehaviour
 {
     [Header("Object References")]
-    [SerializeField] private DataPersistenceManager dataPersistenceManager;
+    //[SerializeField] private DataPersistenceManager dataPersistenceManager;
     [SerializeField] private PlayerVariables _playerVariables;
     [SerializeField] private ActionMapManager _actionMapManager;
 
@@ -20,7 +20,7 @@ public class PlayerInteractions : MonoBehaviour
             if (_playerVariables.canSave)
             {
                 _gameSavedText.gameObject.SetActive(true);
-                dataPersistenceManager.SaveGame();
+                //dataPersistenceManager.SaveGame();
                 //SaveSystem.SavePlayer(_playerStats);
             }
 

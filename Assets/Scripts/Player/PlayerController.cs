@@ -17,17 +17,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
 
     private Vector2 input;
+
     private bool _isFacingRight;
-    private bool _dashed;
     private bool _isDashing;
     private bool _isJumping;
     private bool _isPreparingJump;
     private bool _isFalling;
-    private bool _hasDblJumped;
     private bool _isDiving;
 
-    private double jumpStartTime;
-    private float jumpTimeCounter;
+    private bool _dashed;
+    private bool _hasDblJumped;
+
+    private bool canDBL;
+
     private float jumpCooldown;
     private float _timeLastOnGround;
 
@@ -36,7 +38,6 @@ public class PlayerController : MonoBehaviour
 
     private float variableJump;
 
-    private bool canDBL;
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -157,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && IsGrounded())
+        if (context.started && !_isFalling && IsGrounded())
         {
             variableJump = _playerVariables.minJumpingPower;
             _isPreparingJump = true;
@@ -173,7 +174,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Is jumping?: " + _isJumping);
         }
 
-        /*
+        
         if (context.started && !IsGrounded() && !_isJumping && _timeLastOnGround <= _playerVariables.coyoteTime)
         {
             Debug.Log("Jumping!");
@@ -182,7 +183,7 @@ public class PlayerController : MonoBehaviour
             _rb.velocity = new Vector2(_rb.velocity.x, _playerVariables.maxJumpingPower * 0.8f);
             _timeLastOnGround = 0;
         }
-        */
+        
     }
 
     public void OnDoubleJump(InputAction.CallbackContext context)
