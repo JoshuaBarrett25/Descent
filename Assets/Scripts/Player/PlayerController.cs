@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("Hit");
         if (collision.gameObject.layer == 6)
         {
             _isDashing = false;
@@ -64,7 +63,6 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded())
         {
-            Debug.Log("Player is now Grounded");
             ResetJump();
         }
 
@@ -119,7 +117,6 @@ public class PlayerController : MonoBehaviour
         {
             _rb.velocity = new Vector2(input.x * _playerVariables.speed, _rb.velocity.y);
         }
-        Debug.Log("Is jumping?: " + _isJumping);
     }
 
 
@@ -170,14 +167,11 @@ public class PlayerController : MonoBehaviour
             _isPreparingJump = false;
             _isJumping = true;
             _rb.velocity = new Vector2(_rb.velocity.x, variableJump);
-
-            Debug.Log("Is jumping?: " + _isJumping);
         }
 
         
         if (context.started && !IsGrounded() && !_isJumping && _timeLastOnGround <= _playerVariables.coyoteTime)
         {
-            Debug.Log("Jumping!");
             _isJumping = true;
             jumpCooldown += Time.deltaTime;
             _rb.velocity = new Vector2(_rb.velocity.x, _playerVariables.maxJumpingPower * 0.8f);
@@ -192,7 +186,6 @@ public class PlayerController : MonoBehaviour
         {
             if (context.canceled && canDBL && _isJumping && !_hasDblJumped)
             {
-                Debug.Log("Double Jump!");
                 _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y + 10);
                 _hasDblJumped = true;
             }
@@ -203,7 +196,6 @@ public class PlayerController : MonoBehaviour
     {
         if (_playerVariables.DIVEACQUIRED && context.performed)
         {
-            Debug.Log("Dive!");
             _isDiving = true;
             _rb.velocity = new Vector2(_rb.velocity.x, _playerVariables.diveSpeed);
         }
@@ -215,7 +207,6 @@ public class PlayerController : MonoBehaviour
             ||
             (context.performed && _playerVariables.DASHACQUIRED && !_isDiving && !_playerVariables.DBLJUMPACQUIRED && !IsGrounded() & !_dashed))
         {
-            Debug.Log("Dashing!");
             StartCoroutine(Dashing(1f));
             _dashed = true;
         }

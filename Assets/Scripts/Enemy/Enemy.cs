@@ -1,44 +1,101 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
+using UnityEditor;
+using UnityEditor.Search;
 using UnityEngine;
 
-public class Enemy : WeaponTypes
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float health;
-    [SerializeField] private float stamina;
+    public FiniteStateMachine stateMachine;
 
-    [SerializeField] private float attackDamage;
-    [SerializeField] private float attackRange;
-    [SerializeField] private float attackMultiplier;
-    [SerializeField] private float attackDelay;
-    [SerializeField] private float range;
+    public D_Enemy enemyData;
 
-    [SerializeField] private float[] vulnerabilityScales;
+    public int facingDirection {  get; private set; }
+    public Rigidbody2D rigid { get; private set; }
+    public Animator animator { get; private set; }
+    public GameObject GO { get; private set; }
+    public PlayerDetection playerDetection { get; private set; }
 
-    private float healthCap;
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private Transform ledgeCheck;
 
-    public void CalculateTotalDamage(DamageTypes type , float damage)
+    private Vector2 velocityWS;
+
+    [Header("Enemy stats")]
+    [SerializeField] private float _health;
+    [SerializeField] private float _damage;
+    [SerializeField] private float _movementSpeed;
+
+    [Header("Attacking")]
+    [SerializeField] private Collider2D _attackBox;
+
+    public virtual void Start()
     {
-        TakeDamage(damage * vulnerabilityScales[(int)type]);
+        facingDirection = 1;
+
+        GO = transform.Find("Alive").gameObject;
+        animator = GO.GetComponent<Animator>();
+        rigid = GO.GetComponent<Rigidbody2D>();
+        playerDetection = GO.GetComponent<PlayerDetection>();
+
+        stateMachine = new FiniteStateMachine();
     }
 
-    public void TakeDamage(float damageValue)
+    public virtual void Update()
     {
-
+        stateMachine.currentState.LogicUpdate();
     }
 
-    public void GainHealth(float healthToGain)
+    public virtual void FixedUpdate()
     {
-        if (health + healthToGain >= healthCap)
+        stateMachine.currentState.PhysicsUpdate();
+    }
+
+    public virtual void SetVelocity(float velocity)
+    {
+        velocityWS.Set(facingDirection * velocity, rigid.velocity.y);
+        rigid.velocity = velocityWS;
+    }
+
+    public virtual void ChaseTarget(float velocity)
+    {
+        velocityWS.Set()
+    }
+
+    public virtual bool CheckWall()
+    {
+        return Physics2D.Raycast(wallCheck.position, GO.transform.right, enemyData.wallCheckDistance, enemyData.whatIsGround);
+    }
+
+    public virtual bool CheckLedge()
+    {
+        return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance, enemyData.whatIsGround);
+    }
+
+    public virtual bool CheckDetection()
+    {
+        return playerDetection.GetFoundState();
+    }
+    public virtual void Flip(bool lookingAtTarget)
+    {
+        if (lookingAtTarget)
         {
-            health = healthCap;
+            playerDetection.FacePlayer();
         }
 
         else
         {
-            health += healthToGain;
+            facingDirection *= -1;
+            GO.transform.Rotate(0f, 180f, 0f);
         }
+    }
+
+    public virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.wallCheckDistance));
+        Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * enemyData.ledgeCheckDistance));
     }
 }
