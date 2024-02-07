@@ -12,7 +12,7 @@ public class BurnableManager : MonoBehaviour
     [SerializeField] private GameObject _undamagedSprite;
 
     [Header("Stats")]
-    [SerializeField] private float _startingHealth = 100;
+     [SerializeField] private float _startingHealth = 100;
     [SerializeField] private float _currentHealth;
 
     [Header("Damage Mechanic")]
