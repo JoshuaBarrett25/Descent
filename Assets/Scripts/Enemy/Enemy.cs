@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _damage;
     [SerializeField] private float _movementSpeed;
 
+
     [Header("Attacking")]
     [SerializeField] private Collider2D _attackBox;
 
@@ -62,7 +63,8 @@ public class Enemy : MonoBehaviour
 
     public virtual void ChaseTarget(float velocity)
     {
-        velocityWS.Set()
+        velocityWS.Set(velocity, rigid.velocity.y);
+        rigid.velocity = velocityWS;
     }
 
     public virtual bool CheckWall()
@@ -77,8 +79,14 @@ public class Enemy : MonoBehaviour
 
     public virtual bool CheckDetection()
     {
-        return playerDetection.GetFoundState();
+        return playerDetection.playerFound;
     }
+
+    public virtual bool CheckPlayerLost()
+    {
+        return playerDetection.playerLost;
+    }
+
     public virtual void Flip(bool lookingAtTarget)
     {
         if (lookingAtTarget)

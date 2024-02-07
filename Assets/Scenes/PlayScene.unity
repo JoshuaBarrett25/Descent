@@ -515,8 +515,10 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  _target: {fileID: 6313629899800798043}
   _sight: {fileID: 586264103}
+  _parentGO: {fileID: 506227829}
+  target: {fileID: 6313629899800798043}
+  _losingPlayerTimer: 5
 --- !u!95 &238134851
 Animator:
   serializedVersion: 5
@@ -986,7 +988,7 @@ MonoBehaviour:
   _attackBox: {fileID: 0}
   idleStateData: {fileID: 11400000, guid: 41a1143b10e5536499da1acf8413b8b7, type: 2}
   moveStateData: {fileID: 11400000, guid: a26a9c0d218565540bf756ccc7f479d5, type: 2}
-  followStateData: {fileID: 0}
+  followStateData: {fileID: 11400000, guid: 47a55420beea045d2ab89a0ab41fb4b6, type: 2}
 --- !u!1 &543976939
 GameObject:
   m_ObjectHideFlags: 0
@@ -3659,7 +3661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 884188448105707172, guid: 98327c705269eaf48b5e257cde2ba2c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.5238
+      value: 7.532971
       objectReference: {fileID: 0}
     - target: {fileID: 884188448105707172, guid: 98327c705269eaf48b5e257cde2ba2c9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3934,7 +3936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503321273196419595, guid: af58ae97cea0ac14fb08deee61189391, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.5238
+      value: 7.532971
       objectReference: {fileID: 0}
     - target: {fileID: 1503321273196419595, guid: af58ae97cea0ac14fb08deee61189391, type: 3}
       propertyPath: m_LocalPosition.y

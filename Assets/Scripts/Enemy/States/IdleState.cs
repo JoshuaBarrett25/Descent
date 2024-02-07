@@ -33,16 +33,17 @@ public class IdleState : State
 
         if (flipAfterIdle)
         {
-            enemy.Flip();
+            enemy.Flip(false);
         }
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
+        Debug.Log("Logic!");
         if (Time.time >= startTime + idleTime)
         {
+            Debug.Log("Exiting idle!");
             isIdleTimeOver = true;  
         }
     }

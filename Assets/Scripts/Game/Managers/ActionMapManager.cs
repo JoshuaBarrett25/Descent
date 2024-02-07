@@ -60,6 +60,6 @@ public class ActionMapManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(GetActionMap());
+        //Debug.Log(GetActionMap());
     }
 }

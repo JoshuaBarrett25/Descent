@@ -24,11 +24,15 @@ public class E1_MoveState : MoveState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
         if (isDetectingWall || !isDetectingLedge)
         {
             enemy1.idleState.SetFlipAfterIdle(true);
             fsm.ChangeState(enemy1.idleState);
+        }
+
+        if (enemy.CheckDetection())
+        {
+            fsm.ChangeState(enemy1.followState);
         }
     }
 

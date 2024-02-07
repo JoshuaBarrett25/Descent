@@ -25,9 +25,10 @@ public class E1_FollowState : FollowState
     {
         base.LogicUpdate();
 
-        if (enemy.CheckDetection())
+        if (enemy.CheckPlayerLost())
         {
-            fsm.ChangeState(enemy1.followState);
+            enemy1.idleState.SetFlipAfterIdle(true);
+            fsm.ChangeState(enemy1.idleState);
         }
     }
 

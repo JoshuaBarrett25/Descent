@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerDetection : MonoBehaviour
 {
+    public bool playerFound { get; private set; }
+    public bool playerLost { get; private set; }
+
+
     [Header("Detection")]
     //Target will always be player unless changed due to a summon
     [SerializeField] private Collider2D _detectionRadius;
@@ -14,12 +18,10 @@ public class PlayerDetection : MonoBehaviour
     [Tooltip("Target will always be player unless changed due to a summon")]
     public Transform target;
 
-    private bool playerFound = false;
+    [SerializeField] private float _losingPlayerTimer;
 
-    public bool GetFoundState()
-    {
-        return playerFound;
-    }
+    private float timerWS;
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -27,16 +29,36 @@ public class PlayerDetection : MonoBehaviour
         {
             if (FindPlayer())
             {
+                StopAllCoroutines();
                 Debug.Log("Player detected!");
                 playerFound = true;
             }
 
-            else
+            if (!FindPlayer() && playerFound)
             {
-                Debug.Log("Looking around...");
-                playerFound = false;
+                StartCoroutine(LookingTimer());
             }
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && playerFound)
+        {
+            StartCoroutine(LookingTimer());
+        }
+    }
+
+    private IEnumerator LookingTimer()
+    {
+        while (timerWS <= _losingPlayerTimer)
+        {
+            timerWS += Time.deltaTime;
+            Debug.Log(timerWS);
+            yield return null;
+        }
+        playerFound = false;
+        playerLost = true;
     }
 
     public void FacePlayer()

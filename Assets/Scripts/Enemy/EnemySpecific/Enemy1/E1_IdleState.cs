@@ -29,6 +29,12 @@ public class E1_IdleState : IdleState
         {
             fsm.ChangeState(enemy1.moveState);
         }
+
+        if (enemy.CheckDetection())
+        {
+            fsm.ChangeState(enemy1.followState);
+        }
+
     }
 
     public override void PhysicsUpdate()
