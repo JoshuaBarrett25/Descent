@@ -14,6 +14,7 @@ public class FollowState : State
     {
         base.Enter();
 
+        enemy.Flip(true);
         enemy.SetVelocity(stateData.followSpeed);
     }
 

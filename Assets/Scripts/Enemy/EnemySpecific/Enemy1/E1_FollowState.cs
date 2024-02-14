@@ -14,6 +14,8 @@ public class E1_FollowState : FollowState
     public override void Enter()
     {
         base.Enter();
+
+
     }
 
     public override void Exit()

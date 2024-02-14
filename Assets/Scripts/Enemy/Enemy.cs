@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     public Animator animator { get; private set; }
     public GameObject GO { get; private set; }
     public PlayerDetection playerDetection { get; private set; }
+    public bool facingRight { get; private set; }
+    public GameObject parentGO;
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
@@ -48,6 +50,7 @@ public class Enemy : MonoBehaviour
     public virtual void Update()
     {
         stateMachine.currentState.LogicUpdate();
+        Debug.Log(facingRight);
     }
 
     public virtual void FixedUpdate()
@@ -89,9 +92,10 @@ public class Enemy : MonoBehaviour
 
     public virtual void Flip(bool lookingAtTarget)
     {
+
         if (lookingAtTarget)
         {
-            playerDetection.FacePlayer();
+            
         }
 
         else
@@ -99,6 +103,12 @@ public class Enemy : MonoBehaviour
             facingDirection *= -1;
             GO.transform.Rotate(0f, 180f, 0f);
         }
+    }
+
+
+    public virtual void ResetFlip()
+    {
+        GO.transform.localRotation = Quaternion.identity;
     }
 
     public virtual void OnDrawGizmos()

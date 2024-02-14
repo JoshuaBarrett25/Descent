@@ -7,20 +7,37 @@ public class PlayerDetection : MonoBehaviour
     public bool playerFound { get; private set; }
     public bool playerLost { get; private set; }
 
-
     [Header("Detection")]
     //Target will always be player unless changed due to a summon
     [SerializeField] private Collider2D _detectionRadius;
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private Transform _sight;
 
-    [SerializeField] private Transform _parentGO;
+    public bool facingRight;
+
+    public Transform _parentGO;
     [Tooltip("Target will always be player unless changed due to a summon")]
     public Transform target;
 
     [SerializeField] private float _losingPlayerTimer;
 
     private float timerWS;
+
+
+    private void FixedUpdate()
+    {
+        if (transform.rotation.y < 0)
+        {
+            facingRight = false;
+        }
+
+        else
+        {
+            facingRight = true;
+        }
+
+        Debug.Log(facingRight);
+    }
 
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -61,20 +78,24 @@ public class PlayerDetection : MonoBehaviour
         playerLost = true;
     }
 
-    public void FacePlayer()
+    private bool LookingAtPlayer()
     {
-        if (playerFound)
+        //Player found on left
+        if (target.transform.position.x <= _parentGO.transform.position.x && !facingRight)
         {
-            if (target.position.x <= _parentGO.position.x)
-            {
-                _parentGO.Rotate(0f, 180f, 0f);
-            }
-
-            else if (target.position.x > _parentGO.position.x)
-            {
-                _parentGO.Rotate(0f, 0f, 0f);
-            }
+            return true;
         }
+
+        //Player found on Right
+        else if (target.transform.position.x > _parentGO.transform.position.x && facingRight)
+        {
+            return true;
+        }
+
+        else
+        {
+            return false;
+        } 
     }
 
     private bool FindPlayer()
