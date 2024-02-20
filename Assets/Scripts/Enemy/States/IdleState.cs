@@ -11,6 +11,8 @@ public class IdleState : State
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
 
+    protected bool isPlayerInMinAgroRange;
+
     protected float idleTime;
 
     public IdleState(FiniteStateMachine fsm, Enemy enemy, string animBoolName, D_IdleState stateData) : base(fsm, enemy, animBoolName)
@@ -24,6 +26,7 @@ public class IdleState : State
 
         enemy.SetVelocity(0f);
         isIdleTimeOver = false;
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
         SetRandomIdleTime();
     }
                                
@@ -51,6 +54,7 @@ public class IdleState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
     }
 
     public void SetFlipAfterIdle(bool flip)

@@ -24,6 +24,12 @@ public class E1_PlayerDetectedState : PlayerDetectedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if (!isPlayerInMaxAgroRange)
+        {
+            enemy1.idleState.SetFlipAfterIdle(false);
+            fsm.ChangeState(enemy1.idleState);
+        }
     }
 
     public override void PhysicsUpdate()

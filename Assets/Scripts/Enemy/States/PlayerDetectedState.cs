@@ -6,6 +6,9 @@ public class PlayerDetectedState : State
 {
     protected D_PlayerDetectedState stateData;
 
+    protected bool isPlayerInMinAgroRange;
+    protected bool isPlayerInMaxAgroRange;
+
     public PlayerDetectedState(Enemy enemy, FiniteStateMachine fsm, string animBoolName, D_PlayerDetectedState stateData) : base(fsm, enemy, animBoolName)
     {
         this.stateData = stateData;
@@ -14,8 +17,10 @@ public class PlayerDetectedState : State
     public override void Enter()
     {
         base.Enter();
+        enemy.SetVelocity(0);
 
-
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
     }
 
     public override void Exit()
@@ -31,5 +36,8 @@ public class PlayerDetectedState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
     }
 }

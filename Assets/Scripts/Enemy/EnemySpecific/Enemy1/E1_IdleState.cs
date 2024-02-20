@@ -25,14 +25,14 @@ public class E1_IdleState : IdleState
     {
         base.LogicUpdate();
 
-        if (isIdleTimeOver)
+        if (isPlayerInMinAgroRange)
         {
-            fsm.ChangeState(enemy1.moveState);
+            fsm.ChangeState(enemy1.playerDetectedState);
         }
 
-        if (enemy.CheckDetection())
+        else if (isIdleTimeOver)
         {
-            fsm.ChangeState(enemy1.followState);
+            fsm.ChangeState(enemy1.moveState);
         }
 
     }

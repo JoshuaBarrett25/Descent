@@ -17,12 +17,11 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D rigid { get; private set; }
     public Animator animator { get; private set; }
     public GameObject GO { get; private set; }
-    public PlayerDetection playerDetection { get; private set; }
     public bool facingRight { get; private set; }
-    public GameObject parentGO;
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
+    [SerializeField] private Transform playerCheck;
 
     private Vector2 velocityWS;
 
@@ -42,7 +41,6 @@ public class Enemy : MonoBehaviour
         GO = transform.Find("Alive").gameObject;
         animator = GO.GetComponent<Animator>();
         rigid = GO.GetComponent<Rigidbody2D>();
-        playerDetection = GO.GetComponent<PlayerDetection>();
 
         stateMachine = new FiniteStateMachine();
     }
@@ -80,24 +78,14 @@ public class Enemy : MonoBehaviour
         return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance, enemyData.whatIsGround);
     }
 
-    public virtual bool CheckDetection()
-    {
-        return playerDetection.playerFound;
-    }
-
-    public virtual bool CheckPlayerLost()
-    {
-        return playerDetection.playerLost;
-    }
-
     public virtual bool CheckPlayerInMinAgroRange()
     {
-
+        return Physics2D.Raycast(playerCheck.position, GO.transform.right, enemyData.minAgroDistance, enemyData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInMaxAgroRange()
     {
-
+        return Physics2D.Raycast(playerCheck.position, GO.transform.right, enemyData.maxAgroDistance, enemyData.whatIsPlayer);
     }
 
     public virtual void Flip(bool lookingAtTarget)
@@ -125,5 +113,6 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.wallCheckDistance));
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * enemyData.ledgeCheckDistance));
+        Gizmos.DrawLine(playerCheck.position, playerCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.maxAgroDistance));
     }
 }

@@ -459,6 +459,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &182113717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 182113718}
+  m_Layer: 0
+  m_Name: PlayerCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &182113718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182113717}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.12, y: -0.46, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 238134849}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &238134848
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +503,6 @@ GameObject:
   - component: {fileID: 238134853}
   - component: {fileID: 238134852}
   - component: {fileID: 238134851}
-  - component: {fileID: 238134850}
   m_Layer: 0
   m_Name: Alive
   m_TagString: Untagged
@@ -496,29 +526,10 @@ Transform:
   - {fileID: 1114562372}
   - {fileID: 1037445984}
   - {fileID: 1316437787}
+  - {fileID: 182113718}
   m_Father: {fileID: 506227829}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &238134850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238134848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ac1ec7442d98314cac05116b7961cf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _detectionRadius: {fileID: 1114562371}
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _sight: {fileID: 586264103}
-  _parentGO: {fileID: 506227829}
-  target: {fileID: 6313629899800798043}
-  _losingPlayerTimer: 5
 --- !u!95 &238134851
 Animator:
   serializedVersion: 5
@@ -982,13 +993,14 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 96d8c8f3c72944d49a080c44b6519016, type: 2}
   wallCheck: {fileID: 1037445984}
   ledgeCheck: {fileID: 1316437787}
+  playerCheck: {fileID: 182113718}
   _health: 0
   _damage: 0
   _movementSpeed: 0
   _attackBox: {fileID: 0}
   idleStateData: {fileID: 11400000, guid: 41a1143b10e5536499da1acf8413b8b7, type: 2}
   moveStateData: {fileID: 11400000, guid: a26a9c0d218565540bf756ccc7f479d5, type: 2}
-  followStateData: {fileID: 11400000, guid: 47a55420beea045d2ab89a0ab41fb4b6, type: 2}
+  playerDetectedStateData: {fileID: 11400000, guid: 24a55fda8a093ab41813de2abd7d13c5, type: 2}
 --- !u!1 &543976939
 GameObject:
   m_ObjectHideFlags: 0
@@ -3661,7 +3673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 884188448105707172, guid: 98327c705269eaf48b5e257cde2ba2c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.532971
+      value: 7.5238
       objectReference: {fileID: 0}
     - target: {fileID: 884188448105707172, guid: 98327c705269eaf48b5e257cde2ba2c9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3936,7 +3948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503321273196419595, guid: af58ae97cea0ac14fb08deee61189391, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.532971
+      value: 7.5238
       objectReference: {fileID: 0}
     - target: {fileID: 1503321273196419595, guid: af58ae97cea0ac14fb08deee61189391, type: 3}
       propertyPath: m_LocalPosition.y

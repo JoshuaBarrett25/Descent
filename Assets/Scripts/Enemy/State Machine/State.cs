@@ -17,7 +17,7 @@ public class State
         this.fsm = fsm; 
         this.enemy = enemy;
         this.animBoolName = animBoolName;
-    }
+    }   
 
     public virtual void Enter()
     {

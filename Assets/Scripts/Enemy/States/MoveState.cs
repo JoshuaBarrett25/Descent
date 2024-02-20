@@ -5,8 +5,11 @@ using UnityEngine;
 public class MoveState : State
 {
     protected D_MoveState stateData;
+
     protected bool isDetectingWall;
     protected bool isDetectingLedge;
+    protected bool isPlayerInMinAgroRange;
+
 
     public MoveState(FiniteStateMachine fsm, Enemy enemy, string animBoolName, D_MoveState stateData) : base(fsm, enemy, animBoolName)
     {
@@ -20,6 +23,8 @@ public class MoveState : State
 
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+
     }
 
     public override void Exit()
@@ -38,5 +43,6 @@ public class MoveState : State
 
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
     }
 }
