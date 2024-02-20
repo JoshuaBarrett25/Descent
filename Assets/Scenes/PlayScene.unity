@@ -516,6 +516,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _sight: {fileID: 586264103}
+  facingRight: 0
   _parentGO: {fileID: 506227829}
   target: {fileID: 6313629899800798043}
   _losingPlayerTimer: 5
@@ -980,6 +981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 96d8c8f3c72944d49a080c44b6519016, type: 2}
+  parentGO: {fileID: 506227824}
   wallCheck: {fileID: 1037445984}
   ledgeCheck: {fileID: 1316437787}
   _health: 0
@@ -3661,7 +3663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 884188448105707172, guid: 98327c705269eaf48b5e257cde2ba2c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.532971
+      value: 7.5240593
       objectReference: {fileID: 0}
     - target: {fileID: 884188448105707172, guid: 98327c705269eaf48b5e257cde2ba2c9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3936,7 +3938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503321273196419595, guid: af58ae97cea0ac14fb08deee61189391, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.532971
+      value: 7.5240593
       objectReference: {fileID: 0}
     - target: {fileID: 1503321273196419595, guid: af58ae97cea0ac14fb08deee61189391, type: 3}
       propertyPath: m_LocalPosition.y
