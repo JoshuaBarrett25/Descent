@@ -90,6 +90,16 @@ public class Enemy : MonoBehaviour
         return playerDetection.playerLost;
     }
 
+    public virtual bool CheckPlayerInMinAgroRange()
+    {
+
+    }
+
+    public virtual bool CheckPlayerInMaxAgroRange()
+    {
+
+    }
+
     public virtual void Flip(bool lookingAtTarget)
     {
 

@@ -78,26 +78,6 @@ public class PlayerDetection : MonoBehaviour
         playerLost = true;
     }
 
-    private bool LookingAtPlayer()
-    {
-        //Player found on left
-        if (target.transform.position.x <= _parentGO.transform.position.x && !facingRight)
-        {
-            return true;
-        }
-
-        //Player found on Right
-        else if (target.transform.position.x > _parentGO.transform.position.x && facingRight)
-        {
-            return true;
-        }
-
-        else
-        {
-            return false;
-        } 
-    }
-
     private bool FindPlayer()
     {
         RaycastHit2D hit = Physics2D.Linecast(transform.position, target.position, LayerMask.GetMask("Ground", "Wall", "Player"));
