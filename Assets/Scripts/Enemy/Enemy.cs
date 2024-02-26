@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,21 +19,15 @@ public class Enemy : MonoBehaviour
     public Animator animator { get; private set; }
     public GameObject GO { get; private set; }
     public bool facingRight { get; private set; }
+    public Collider2D attackBox { get; private set; }
+    public AnimationToSM animToStateM { get; private set; }
 
+    [Header("Position Refs")]
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
     [SerializeField] private Transform playerCheck;
 
     private Vector2 velocityWS;
-
-    [Header("Enemy stats")]
-    [SerializeField] private float _health;
-    [SerializeField] private float _damage;
-    [SerializeField] private float _movementSpeed;
-
-
-    [Header("Attacking")]
-    [SerializeField] private Collider2D _attackBox;
 
     public virtual void Start()
     {
@@ -41,6 +36,7 @@ public class Enemy : MonoBehaviour
         GO = transform.Find("Alive").gameObject;
         animator = GO.GetComponent<Animator>();
         rigid = GO.GetComponent<Rigidbody2D>();
+        animToStateM = GO.GetComponent<AnimationToSM>();
 
         stateMachine = new FiniteStateMachine();
     }
@@ -88,6 +84,16 @@ public class Enemy : MonoBehaviour
         return Physics2D.Raycast(playerCheck.position, GO.transform.right, enemyData.maxAgroDistance, enemyData.whatIsPlayer);
     }
 
+    public virtual bool CheckPlayerInAttackRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, GO.transform.right, enemyData.attackDistance, enemyData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInCloseRangeAction()
+    {
+        return Physics2D.Raycast(playerCheck.position, GO.transform.right, enemyData.closeRangeActionDistance, enemyData.whatIsPlayer);
+    }
+
     public virtual void Flip(bool lookingAtTarget)
     {
 
@@ -103,7 +109,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
     public virtual void ResetFlip()
     {
         GO.transform.localRotation = Quaternion.identity;
@@ -111,8 +116,8 @@ public class Enemy : MonoBehaviour
 
     public virtual void OnDrawGizmos()
     {
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.wallCheckDistance));
-        Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * enemyData.ledgeCheckDistance));
-        Gizmos.DrawLine(playerCheck.position, playerCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.maxAgroDistance));
+        //Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.wallCheckDistance));
+        //Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * enemyData.ledgeCheckDistance));
+        Gizmos.DrawLine(playerCheck.position, playerCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.attackDistance));
     }
 }

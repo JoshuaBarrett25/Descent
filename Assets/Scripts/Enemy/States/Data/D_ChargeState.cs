@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newChargeStateData", menuName = "Data/State Data/Charge State")]
 public class D_ChargeState : ScriptableObject
 {
-    public float chargeSpeed = 4f;
+    public float chargeSpeed = 5f;
 }

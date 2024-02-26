@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class E1_PlayerDetectedState : PlayerDetectedState
 {
     private Enemy1 enemy1;
+
+    private float timerWS;
 
     public E1_PlayerDetectedState(Enemy enemy, FiniteStateMachine fsm, string animBoolName, D_PlayerDetectedState stateData, Enemy1 enemy1) : base(enemy, fsm, animBoolName, stateData)
     {
@@ -19,6 +24,7 @@ public class E1_PlayerDetectedState : PlayerDetectedState
     public override void Exit()
     {
         base.Exit();
+        timerWS = 0f;
     }
 
     public override void LogicUpdate()
@@ -27,8 +33,21 @@ public class E1_PlayerDetectedState : PlayerDetectedState
 
         if (!isPlayerInMaxAgroRange)
         {
-            enemy1.idleState.SetFlipAfterIdle(false);
-            fsm.ChangeState(enemy1.idleState);
+            timerWS = 0f;
+            fsm.ChangeState(enemy1.playerLostState);
+        }
+
+        else if (isPlayerInMaxAgroRange)
+        {
+            if (timerWS <= stateData.detectionTime)
+            {
+                timerWS += Time.deltaTime;
+            }
+
+            else
+            {
+                fsm.ChangeState(enemy1.chargeState);
+            }
         }
     }
 

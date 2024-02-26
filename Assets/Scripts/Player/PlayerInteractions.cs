@@ -5,9 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractions : MonoBehaviour
 {
+    public D_Player playerData;
+
     [Header("Object References")]
     //[SerializeField] private DataPersistenceManager dataPersistenceManager;
-    [SerializeField] private PlayerVariables _playerVariables;
     [SerializeField] private ActionMapManager _actionMapManager;
 
     [Header("UI Elements")]
@@ -17,7 +18,7 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (context.canceled)
         {
-            if (_playerVariables.canSave)
+            if (playerData.canSave)
             {
                 _gameSavedText.gameObject.SetActive(true);
                 //dataPersistenceManager.SaveGame();
@@ -25,12 +26,12 @@ public class PlayerInteractions : MonoBehaviour
             }
 
 
-            if (_playerVariables.interactRange)
+            if (playerData.interactRange)
             {
                 Debug.Log("Interacted with");
                 _actionMapManager.SetActionMap(2);
                 //_playerVariables.dialogue.cameraLookAt.SwitchLookAt(_playerVariables.dialogue.npcLookLocation);
-                DialogueManager.GetInstance().EnterDialogueMode(_playerVariables.dialogue.inkAsset);
+                DialogueManager.GetInstance().EnterDialogueMode(playerData.dialogue.inkAsset);
             }
         }
     }

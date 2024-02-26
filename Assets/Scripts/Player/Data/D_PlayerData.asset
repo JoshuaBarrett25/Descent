@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0e9bacd62be2a4c80a6c7f40077b47, type: 3}
+  m_Name: D_PlayerData
+  m_EditorClassIdentifier: 
+  health: 100
+  stamina: 100
+  playerLVL: 1
+  currentEXP: 100
+  totalEXP: 100
+  minJumpingPower: 7
+  maxJumpingPower: 17
+  speed: 7
+  dashSpeed: 11
+  diveSpeed: -15
+  DASHACQUIRED: 0
+  DBLJUMPACQUIRED: 0
+  DIVEACQUIRED: 0
+  dialogue: {fileID: 0}
+  interactRange: 0
+  canSave: 0
+  coyoteTime: 0.3
+  jumpInterval: 0.05
+  jumpBufferInterval: 0

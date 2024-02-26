@@ -6,8 +6,8 @@ using UnityEngine.Windows;
 
 public class PlayerController : MonoBehaviour
 {
+    public D_Player playerData;
 
-    [SerializeField] private PlayerVariables _playerVariables;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private ActionMapManager _actionMapManager;
 
@@ -79,14 +79,14 @@ public class PlayerController : MonoBehaviour
 
         if (_isPreparingJump)
         {
-            if (variableJump < _playerVariables.maxJumpingPower)
+            if (variableJump < playerData.maxJumpingPower)
             {
                 variableJump += 1f;
             }
 
             else
             {
-                variableJump = _playerVariables.maxJumpingPower;
+                variableJump = playerData.maxJumpingPower;
             }
 
         }
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
             _timeLastOnGround += Time.deltaTime;
         }
 
-        if (_isJumping && _playerVariables.DBLJUMPACQUIRED)
+        if (_isJumping && playerData.DBLJUMPACQUIRED)
         {
             dblJumpTimer += Time.deltaTime;
 
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
         if (!_isDashing)
         {
-            _rb.velocity = new Vector2(input.x * _playerVariables.speed, _rb.velocity.y);
+            _rb.velocity = new Vector2(input.x * playerData.speed, _rb.velocity.y);
         }
     }
 
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        _playerVariables.dashSpeed = 25f;
+        playerData.dashSpeed = 25f;
         return Physics2D.OverlapCircle(_groundCheck.position, 0.05f, _groundLayer);
     }
                     
@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started && !_isFalling && IsGrounded())
         {
-            variableJump = _playerVariables.minJumpingPower;
+            variableJump = playerData.minJumpingPower;
             _isPreparingJump = true;
         }
 
@@ -170,11 +170,11 @@ public class PlayerController : MonoBehaviour
         }
 
         
-        if (context.started && !IsGrounded() && !_isJumping && _timeLastOnGround <= _playerVariables.coyoteTime)
+        if (context.started && !IsGrounded() && !_isJumping && _timeLastOnGround <= playerData.coyoteTime)
         {
             _isJumping = true;
             jumpCooldown += Time.deltaTime;
-            _rb.velocity = new Vector2(_rb.velocity.x, _playerVariables.maxJumpingPower * 0.8f);
+            _rb.velocity = new Vector2(_rb.velocity.x, playerData.maxJumpingPower * 0.8f);
             _timeLastOnGround = 0;
         }
         
@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDoubleJump(InputAction.CallbackContext context)
     {
-        if (_playerVariables.DBLJUMPACQUIRED)
+        if (playerData.DBLJUMPACQUIRED)
         {
             if (context.canceled && canDBL && _isJumping && !_hasDblJumped)
             {
@@ -194,18 +194,18 @@ public class PlayerController : MonoBehaviour
 
     public void OnDive(InputAction.CallbackContext context)
     {
-        if (_playerVariables.DIVEACQUIRED && context.performed)
+        if (playerData.DIVEACQUIRED && context.performed)
         {
             _isDiving = true;
-            _rb.velocity = new Vector2(_rb.velocity.x, _playerVariables.diveSpeed);
+            _rb.velocity = new Vector2(_rb.velocity.x, playerData.diveSpeed);
         }
     }
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if ((context.performed && _playerVariables.DASHACQUIRED && !_isDiving && _hasDblJumped && !IsGrounded() && !_dashed)
+        if ((context.performed && playerData.DASHACQUIRED && !_isDiving && _hasDblJumped && !IsGrounded() && !_dashed)
             ||
-            (context.performed && _playerVariables.DASHACQUIRED && !_isDiving && !_playerVariables.DBLJUMPACQUIRED && !IsGrounded() & !_dashed))
+            (context.performed && playerData.DASHACQUIRED && !_isDiving && !playerData.DBLJUMPACQUIRED && !IsGrounded() & !_dashed))
         {
             StartCoroutine(Dashing(1f));
             _dashed = true;
@@ -220,12 +220,12 @@ public class PlayerController : MonoBehaviour
         }
         _isDashing = true;
         _rb.velocity = new Vector2(_rb.velocity.x, 0f);
-        _rb.AddForce(new Vector2(_playerVariables.dashSpeed * direction, 0), ForceMode2D.Impulse);
+        _rb.AddForce(new Vector2(playerData.dashSpeed * direction, 0), ForceMode2D.Impulse);
         float gravity = _rb.gravityScale;
         _rb.gravityScale = 0;
         yield return new WaitForSeconds(0.15f);
         _rb.gravityScale = 0.5f;
-        _rb.AddForce(new Vector2(_playerVariables.dashSpeed * -direction, 0), ForceMode2D.Impulse);
+        _rb.AddForce(new Vector2(playerData.dashSpeed * -direction, 0), ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.15f);
         _isDashing = false;
         _rb.gravityScale = gravity;

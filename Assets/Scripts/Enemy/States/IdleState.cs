@@ -47,7 +47,7 @@ public class IdleState : State
         if (Time.time >= startTime + idleTime)
         {
             Debug.Log("Exiting idle!");
-            isIdleTimeOver = true;  
+            isIdleTimeOver = true;
         }
     }
 
