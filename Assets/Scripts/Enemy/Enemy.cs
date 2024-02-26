@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     public Animator animator { get; private set; }
     public GameObject GO { get; private set; }
     public bool facingRight { get; private set; }
-    public Collider2D attackBox { get; private set; }
+    public Collider2D attackBox;
     public AnimationToSM animToStateM { get; private set; }
 
     [Header("Position Refs")]
@@ -44,7 +44,6 @@ public class Enemy : MonoBehaviour
     public virtual void Update()
     {
         stateMachine.currentState.LogicUpdate();
-        Debug.Log(facingRight);
     }
 
     public virtual void FixedUpdate()

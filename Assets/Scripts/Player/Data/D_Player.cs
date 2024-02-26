@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newPlayerData", menuName = "Data/Player Data/Base Data")]
 public class D_Player : ScriptableObject
 {
+    [Header("LayerMasks")]
+    public LayerMask whatIsGround;
+    public LayerMask whatIsWall;
+
     [Header("Stats")]
     public float health = 100;
     public float stamina = 100;

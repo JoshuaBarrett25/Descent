@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0e9bacd62be2a4c80a6c7f40077b47, type: 3}
   m_Name: D_PlayerData
   m_EditorClassIdentifier: 
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 512
   health: 100
   stamina: 100
   playerLVL: 1
