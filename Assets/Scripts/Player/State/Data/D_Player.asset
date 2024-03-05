@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b0e9bacd62be2a4c80a6c7f40077b47, type: 3}
-  m_Name: D_PlayerData
+  m_Name: D_Player
   m_EditorClassIdentifier: 
   whatIsGround:
     serializedVersion: 2
