@@ -4,6 +4,7 @@ using Pathfinding;
 
 public class PlayerSeek : MonoBehaviour
 {
+    /*
     [Header("Player")]
     public PlayerActions playerActions;
 
@@ -109,4 +110,5 @@ public class PlayerSeek : MonoBehaviour
             _currentWaypoint = 0;
         }
     }
+    */
 }

@@ -26,7 +26,7 @@ public class Enemy1 : Enemy
         playerDetectedState = new E1_PlayerDetectedState(this, stateMachine, "detected", playerDetectedStateData, this);
         chargeState = new E1_ChargeState(this, stateMachine, "charge", chargeStateData, this);
         playerLostState = new E1_PlayerLostState(this, stateMachine, "lost", playerLostStateData, this);
-       
+
 
         stateMachine.Init(moveState);
     }

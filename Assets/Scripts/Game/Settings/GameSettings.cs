@@ -8,7 +8,7 @@ public class GameSettings : MonoBehaviour
 {
     [Header("SystemReferences")]
     [SerializeField] private AudioMixer _gameMixer;
-    [SerializeField] private KeyMapping _keyMap;
+    //[SerializeField] private KeyMapping _keyMap;
 
 
     [Header("SoundVariables")]

@@ -21,7 +21,6 @@ public class AttackState : State
         enemy.animToStateM.attackState = this;
         enemy.SetVelocity(0f);
         isAnimationFinished = false;
-
     }
 
     public override void Exit()

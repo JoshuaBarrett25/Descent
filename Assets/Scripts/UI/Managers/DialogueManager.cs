@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    /*
     [Header("Object References")]
     [SerializeField] private GameObject player;
     public GameObject currentNpc;
@@ -139,4 +140,5 @@ public class DialogueManager : MonoBehaviour
             ExitDialogueMode();
         }
     }
+    */
 }

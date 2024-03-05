@@ -1,55 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor.Timeline;
 
 public class Player : MonoBehaviour
 {
-    public D_Player playerData;
+    public PlayerStateMachine psm;
+    public Map map;
 
-    public int facingDirection { get; private set; }
-    public bool facingRight { get; private set; }
+    public bool _facingRight { get; private set; }
     public Rigidbody2D rigid { get; private set; }
     public Animator animator { get; private set; }
-    public GameObject GO { get; private set; }
+    public PlayerActions playerActions { get; private set; }
 
-    [SerializeField] private ActionMapManager actionMapManager;
+    public DefaultPlayerState defaultPlayerState { get; private set; }
+
+    [Header("State Data Objects")]
+    [SerializeField] private D_Player playerData;
+    [SerializeField] private D_DefaultPlayerState defaultPlayerStateData;
 
     [Header("Attacking Variables")]
-    [SerializeField] private Collider2D _attackbox;
+    public Collider2D attackbox;
 
     [Header("Grounded Variables")]
-    [SerializeField] private Transform _wallCheck;
-    [SerializeField] private Transform _groundCheck;
+    public Transform wallCheck;
+    public Transform groundCheck;
 
-    
 
-    private void Start()
+    public virtual void Start()
     {
-        facingDirection = 1;
+        psm = new PlayerStateMachine();
+        defaultPlayerState = new DefaultPlayerState(psm, this, defaultPlayerStateData);
+        playerActions = map.playerActions;
+        psm.Init(defaultPlayerState);
 
-        GO = transform.Find("Alive").gameObject;
-        animator = GO.GetComponent<Animator>();
-        rigid = GO.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
+        rigid = gameObject.GetComponent<Rigidbody2D>();
     }
 
     public virtual bool CheckGround()
     {
-        return Physics2D.OverlapCircle(_groundCheck.position, 0.05f, playerData.whatIsGround);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.05f, playerData.whatIsGround);
     }
 
     public virtual bool CheckWall()
     {
-        return Physics2D.OverlapCircle(_wallCheck.position, 0.05f, playerData.whatIsWall);
+        return Physics2D.OverlapCircle(wallCheck.position, 0.05f, playerData.whatIsWall);
     }
 
-    public virtual void Flip()
+    public virtual void FlipPlayer()
     {
-        facingDirection *= -1;
-        GO.transform.Rotate(0f, 180f, 0f);
+        _facingRight = !_facingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
     }
 
     public virtual void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(_groundCheck.position, 0.05f);
-        Gizmos.DrawSphere(_wallCheck.position, 0.05f);
+        Gizmos.DrawSphere(groundCheck.position, 0.05f);
+        Gizmos.DrawSphere(wallCheck.position, 0.05f);
     }
 }

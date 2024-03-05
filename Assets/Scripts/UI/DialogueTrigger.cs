@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
+    /*
     public D_Player playerData;
 
     [SerializeField] private GameObject parent;
@@ -54,6 +55,6 @@ public class DialogueTrigger : MonoBehaviour
     {
         _visualCue.SetActive(_playerInRange);
     }
-
+    */
 
 }
