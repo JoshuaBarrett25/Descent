@@ -14,6 +14,8 @@ public class P_Movement : MonoBehaviour
     private float _jumpCooldown;
     private bool _isJumping;
     private bool _startingJump;
+
+    private float _velocityDelta;
     private float _variableJumpPowerWS;
 
     private float _timeLastOnGround;
@@ -23,12 +25,6 @@ public class P_Movement : MonoBehaviour
         player = gameObject.GetComponent<Player>();
         player.rigid.gravityScale = playerData.gravityScale;
     }
-    /*
-    private void Awake()
-    {
-        player.playerActions.Play.Jump.performed += OnJump;
-        player.playerActions.Play.DoubleJump.performed += OnDoubleJump;
-    }*/
 
     private void FixedUpdate()
     {
@@ -46,6 +42,20 @@ public class P_Movement : MonoBehaviour
             {
                 _isJumping = false;
                 player.rigid.gravityScale = playerData.gravityScale;
+            }
+        }
+
+        if (_isJumping)
+        {
+            if (_velocityDelta < player.rigid.position.y)
+            {
+                _velocityDelta = player.rigid.position.y;
+            }
+
+            else
+            {
+                _isJumping = false;
+                _isFalling = true;
             }
         }
 
@@ -85,8 +95,8 @@ public class P_Movement : MonoBehaviour
         {
             _jumpCooldown += Time.deltaTime;
             _isJumping = true;
+            _velocityDelta = player.rigid.velocity.y;
             player.rigid.velocity = new Vector2(player.rigid.velocity.x, playerData.maxJumpingPower);
-            Debug.Log("Starting Jump!");
         }
 
         if (context.canceled && _isJumping && !_isFalling)

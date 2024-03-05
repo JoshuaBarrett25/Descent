@@ -16,7 +16,7 @@ public class PlayState : MapState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Entering: Play");
+        //Debug.Log("Entering: Play");
         map.playGroup.SetActive(true);
         map.playerActions.Play.Enable();
     }
