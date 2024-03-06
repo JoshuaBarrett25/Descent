@@ -20,16 +20,19 @@ public class P_Movement : MonoBehaviour
 
     private float _timeLastOnGround;
 
+
+    private bool _isDashing;
+    private bool _hasDashed;
+
     private void Start()
     {
         player = gameObject.GetComponent<Player>();
-        player.rigid.gravityScale = playerData.gravityScale;
     }
 
     private void FixedUpdate()
     {
         player.playerActions.Play.Jump.performed += OnJump;
-        player.playerActions.Play.DoubleJump.performed += OnDoubleJump;
+        //player.playerActions.Play.DoubleJump.performed += OnDoubleJump;
 
         if (player.CheckGround())
         {
@@ -41,7 +44,6 @@ public class P_Movement : MonoBehaviour
             if (_isJumping)
             {
                 _isJumping = false;
-                player.rigid.gravityScale = playerData.gravityScale;
             }
         }
 
@@ -76,7 +78,10 @@ public class P_Movement : MonoBehaviour
     public void OnMove()
     {
         input = player.playerActions.Play.Move.ReadValue<Vector2>();
-        player.rigid.velocity = new Vector2(input.x * playerData.speed, player.rigid.velocity.y);
+        if (!_isDashing)
+        {
+            player.rigid.velocity = new Vector2(input.x * playerData.speed, player.rigid.velocity.y);
+        }
 
         if (player.rigid.velocity.x > 0f && !player.facingRight)
         {
@@ -106,8 +111,29 @@ public class P_Movement : MonoBehaviour
         }
     }
 
-    public void OnDoubleJump(InputAction.CallbackContext context)
+    public void OnDash(InputAction.CallbackContext context)
     {
+        if (context.started && _isFalling && !_isDashing)
+        {
+            StartCoroutine(Dashing(1f));
+            _hasDashed = true;
+        }
+    }
 
+    IEnumerator Dashing(float direction)
+    {
+        if (!player.facingRight)
+        {
+            direction = -direction;
+        }
+        _isDashing = true;
+        player.rigid.gravityScale = 0f;
+        player.rigid.velocity = new Vector2(playerData.dashSpeed * direction, 0);
+        yield return new WaitForSeconds(0.1f);
+        player.rigid.gravityScale = 0.5f;
+        player.rigid.AddForce(new Vector2(playerData.dashSpeed * -direction, 0), ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.15f);
+        _isDashing = false;
+        player.rigid.gravityScale = playerData.gravityScale;
     }
 }

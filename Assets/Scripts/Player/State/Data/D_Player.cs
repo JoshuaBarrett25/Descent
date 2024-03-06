@@ -17,7 +17,7 @@ public class D_Player : ScriptableObject
     public long totalEXP = 100;
 
     [Header("Values")]
-    public float gravityScale = 2f;
+    public float gravityScale = 3f;
     public float minJumpingPower = 7;
     public float maxJumpingPower = 17;
     public float speed = 7;
