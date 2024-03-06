@@ -10,19 +10,15 @@ public class P_Movement : MonoBehaviour
     [SerializeField] private D_Player playerData;
     protected Vector2 input;
 
-    private bool _isFalling;
-    private float _jumpCooldown;
     private bool _isJumping;
-    private bool _startingJump;
-
-    private float _velocityDelta;
-    private float _variableJumpPowerWS;
-
-    private float _timeLastOnGround;
-
-
     private bool _isDashing;
+    private bool _isFalling;
+
+    private float _jumpCooldown;
+    private float _velocityDelta;
+
     private bool _hasDashed;
+
 
     private void Start()
     {
@@ -32,19 +28,13 @@ public class P_Movement : MonoBehaviour
     private void FixedUpdate()
     {
         player.playerActions.Play.Jump.performed += OnJump;
-        //player.playerActions.Play.DoubleJump.performed += OnDoubleJump;
 
         if (player.CheckGround())
         {
-            if (_isFalling)
-            {
-                _isFalling = false;
-            }
+            _isFalling = false;
+            _isJumping = false;
 
-            if (_isJumping)
-            {
-                _isJumping = false;
-            }
+            _hasDashed = false;
         }
 
         if (_isJumping)
@@ -113,7 +103,7 @@ public class P_Movement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.started && _isFalling && !_isDashing)
+        if (context.started && !_hasDashed && _isFalling && !_isDashing)
         {
             StartCoroutine(Dashing(1f));
             _hasDashed = true;

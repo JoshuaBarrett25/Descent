@@ -23,10 +23,11 @@ MonoBehaviour:
   playerLVL: 1
   currentEXP: 100
   totalEXP: 100
+  gravityScale: 2
   minJumpingPower: 7
   maxJumpingPower: 17
   speed: 7
-  dashSpeed: 11
+  dashSpeed: 19.5
   diveSpeed: -15
   DASHACQUIRED: 0
   DBLJUMPACQUIRED: 0

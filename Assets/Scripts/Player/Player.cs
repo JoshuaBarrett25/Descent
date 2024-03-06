@@ -33,8 +33,9 @@ public class Player : MonoBehaviour
         playerActions = map.playerActions;
         psm.Init(defaultPlayerState);
 
-        animator = gameObject.GetComponent<Animator>();
-        rigid = gameObject.GetComponent<Rigidbody2D>();
+        
+        animator = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
     }
 
     public virtual bool CheckGround()
@@ -50,9 +51,14 @@ public class Player : MonoBehaviour
     public virtual void FlipPlayer()
     {
         facingRight = !facingRight;
-        Vector3 localScale = transform.localScale;
+        Vector3 localScale = gameObject.transform.localScale;
         localScale.x *= -1f;
-        transform.localScale = localScale;
+        gameObject.transform.localScale = localScale;
+    }
+
+    public virtual void TakeDamage(float calculatedDMG)
+    {
+
     }
 
     public virtual void OnDrawGizmos()
