@@ -6,11 +6,12 @@ using UnityEngine;
 public class D_Player : ScriptableObject
 {
     [Header("LayerMasks")]
+    public LayerMask whatIsSafeArea;
     public LayerMask whatIsGround;
     public LayerMask whatIsWall;
 
     [Header("Stats")]
-    public float health = 100;
+    public float health = 3;
     public float stamina = 100;
     public int playerLVL = 1;
     public long currentEXP = 100;

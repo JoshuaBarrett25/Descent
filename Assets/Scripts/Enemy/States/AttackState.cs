@@ -38,9 +38,11 @@ public class AttackState : State
         base.PhysicsUpdate();
     }
 
-    public virtual void TriggerAttack()
+    public override void TriggerAttack()
     {
+        base.TriggerAttack();
 
+        //Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackPosition.position);
     }
 
     public virtual void FinishAttack()

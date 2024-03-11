@@ -5,6 +5,7 @@ using UnityEngine;
 public class MeleeAttackState : AttackState
 {
     protected D_MeleeAttackState stateData;
+    protected AttackDetails attackDetails;
 
     public MeleeAttackState(Enemy enemy, FiniteStateMachine fsm, string animBoolName, Transform attackPosition, D_MeleeAttackState stateData) : base(enemy, fsm, animBoolName, attackPosition)
     {
@@ -14,6 +15,10 @@ public class MeleeAttackState : AttackState
     public override void Enter()
     {
         base.Enter();
+
+        attackDetails.damageValue = stateData.attackDamage;
+        attackDetails.position = enemy.GO.transform.position;
+        attackDetails.range = enemy.enemyData.attackDistance;
     }
 
     public override void Exit()
@@ -40,12 +45,11 @@ public class MeleeAttackState : AttackState
     {
         base.TriggerAttack();
 
-        Collider2D[] detectedColliders = Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.whatIsPlayer);
+        Collider2D[] detectedColliders = Physics2D.OverlapCircleAll(attackDetails.position, attackDetails.range, stateData.whatIsPlayer);
 
         foreach (Collider2D collider in detectedColliders)
         {
-            //collider.transform.SendMessage("Damaged", attackDetails);
-            //https://youtu.be/Qp38X9TEVqI?si=-E42BDqkf1Rewidn&t=1320
+           collider.transform.SendMessage("Damaged", attackDetails);
         }
     }
 }

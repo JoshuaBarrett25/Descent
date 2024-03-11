@@ -39,4 +39,9 @@ public class State
     {
 
     }
+
+    public virtual void TriggerAttack()
+    {
+
+    }
 }
