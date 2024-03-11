@@ -2816,6 +2816,11 @@ Transform:
   m_Father: {fileID: 238134849}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1328608670 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6887095990341190596, guid: 9b0b5598a2ed93f44aa195914a73ac66, type: 3}
+  m_PrefabInstance: {fileID: 2722913055411320667}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1382592360
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,7 +3871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 884188448105707172, guid: 98327c705269eaf48b5e257cde2ba2c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.524101
+      value: 7.5234113
       objectReference: {fileID: 0}
     - target: {fileID: 884188448105707172, guid: 98327c705269eaf48b5e257cde2ba2c9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3985,6 +3990,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 956844709}
     - target: {fileID: 2260315721459613157, guid: 9b0b5598a2ed93f44aa195914a73ac66, type: 3}
+      propertyPath: attackbox
+      value: 
+      objectReference: {fileID: 1328608670}
+    - target: {fileID: 2260315721459613157, guid: 9b0b5598a2ed93f44aa195914a73ac66, type: 3}
+      propertyPath: _weaponData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a7ab49d3df5bed45b12d88464f005d8, type: 2}
+    - target: {fileID: 2260315721459613157, guid: 9b0b5598a2ed93f44aa195914a73ac66, type: 3}
       propertyPath: _deathStateData
       value: 
       objectReference: {fileID: 11400000, guid: 96cc4bb8a883bb34fa3ef5d5f84631c9, type: 2}
@@ -4099,7 +4112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503321273196419595, guid: af58ae97cea0ac14fb08deee61189391, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.524101
+      value: 7.5234113
       objectReference: {fileID: 0}
     - target: {fileID: 1503321273196419595, guid: af58ae97cea0ac14fb08deee61189391, type: 3}
       propertyPath: m_LocalPosition.y

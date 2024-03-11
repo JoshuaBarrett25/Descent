@@ -14,6 +14,7 @@ public class DefaultPlayerState : PlayerState
 {
     protected D_DefaultPlayerState stateData;
 
+
     public DefaultPlayerState(PlayerStateMachine psm, Player player, D_DefaultPlayerState stateData) : base(psm, player)
     {
         this.stateData = stateData;
@@ -23,6 +24,7 @@ public class DefaultPlayerState : PlayerState
     {
         base.Enter();
         Debug.Log("Entering: Default Player State");
+        
     }
 
     public override void Exit()

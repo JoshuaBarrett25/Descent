@@ -21,8 +21,8 @@ public class Player : MonoBehaviour
     public bool _isCombatEnabled { get; private set; }
 
     [Header("State Data Objects")]
-    [SerializeField] private D_Weapon _weaponData;
-    [SerializeField] private D_Player _playerData;
+    public D_Weapon _weaponData;
+    public D_Player _playerData;
     [SerializeField] private D_DefaultPlayerState _defaultPlayerStateData;
     [SerializeField] private D_DialogueState _dialogueStateData;
     [SerializeField] private D_CombatState _combatStateData;
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
 
     public virtual bool CheckSafeArea()
     {
-        return Physics2D.OverlapCircle(this.gameObject.transform.position, 1f, _playerData.whatIsSafeArea);
+        return Physics2D.OverlapCircle(gameObject.transform.position, 1f, _playerData.whatIsSafeArea);
     }
 
     public virtual bool CheckGround()
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
 
     public virtual void Damaged(AttackDetails attack)
     {
-        _playerData.health -= attack.damageValue;
+       _playerData.health -= attack.damageValue;
        
     }
 
