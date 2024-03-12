@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
+//using Pathfinding;
 
+/*
 public class EnemyAI : MonoBehaviour
 {
     [Header("Pathfinding")]
@@ -120,3 +121,5 @@ public class EnemyAI : MonoBehaviour
         }
     }
 }
+
+*/

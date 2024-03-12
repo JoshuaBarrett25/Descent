@@ -145,6 +145,24 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LightAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""18fc031f-183f-499a-877d-a91da025afe7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""HeavyAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""acc980e5-1f20-44d3-8245-0d6c3ca7df26"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -266,6 +284,28 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Player"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a70b9da-84c3-4b72-bbc7-592a104f3aa5"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Player"",
+                    ""action"": ""LightAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e705a5df-0bc4-45d8-a655-544b33f1905e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player"",
+                    ""action"": ""HeavyAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -842,6 +882,8 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_Play_OpenStartMenu = m_Play.FindAction("OpenStartMenu", throwIfNotFound: true);
         m_Play_Dive = m_Play.FindAction("Dive", throwIfNotFound: true);
         m_Play_Interact = m_Play.FindAction("Interact", throwIfNotFound: true);
+        m_Play_LightAttack = m_Play.FindAction("LightAttack", throwIfNotFound: true);
+        m_Play_HeavyAttack = m_Play.FindAction("HeavyAttack", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1018,6 +1060,8 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Play_OpenStartMenu;
     private readonly InputAction m_Play_Dive;
     private readonly InputAction m_Play_Interact;
+    private readonly InputAction m_Play_LightAttack;
+    private readonly InputAction m_Play_HeavyAttack;
     public struct PlayActions
     {
         private @PlayerActions m_Wrapper;
@@ -1029,6 +1073,8 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         public InputAction @OpenStartMenu => m_Wrapper.m_Play_OpenStartMenu;
         public InputAction @Dive => m_Wrapper.m_Play_Dive;
         public InputAction @Interact => m_Wrapper.m_Play_Interact;
+        public InputAction @LightAttack => m_Wrapper.m_Play_LightAttack;
+        public InputAction @HeavyAttack => m_Wrapper.m_Play_HeavyAttack;
         public InputActionMap Get() { return m_Wrapper.m_Play; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1059,6 +1105,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @LightAttack.started += instance.OnLightAttack;
+            @LightAttack.performed += instance.OnLightAttack;
+            @LightAttack.canceled += instance.OnLightAttack;
+            @HeavyAttack.started += instance.OnHeavyAttack;
+            @HeavyAttack.performed += instance.OnHeavyAttack;
+            @HeavyAttack.canceled += instance.OnHeavyAttack;
         }
 
         private void UnregisterCallbacks(IPlayActions instance)
@@ -1084,6 +1136,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @LightAttack.started -= instance.OnLightAttack;
+            @LightAttack.performed -= instance.OnLightAttack;
+            @LightAttack.canceled -= instance.OnLightAttack;
+            @HeavyAttack.started -= instance.OnHeavyAttack;
+            @HeavyAttack.performed -= instance.OnHeavyAttack;
+            @HeavyAttack.canceled -= instance.OnHeavyAttack;
         }
 
         public void RemoveCallbacks(IPlayActions instance)
@@ -1299,6 +1357,8 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         void OnOpenStartMenu(InputAction.CallbackContext context);
         void OnDive(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnLightAttack(InputAction.CallbackContext context);
+        void OnHeavyAttack(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

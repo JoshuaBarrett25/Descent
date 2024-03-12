@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Pathfinding;
 
 public class PlayerSeek : MonoBehaviour
 {

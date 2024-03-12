@@ -10,8 +10,6 @@ public class PlayerCombatController : MonoBehaviour
 
     [SerializeField] private D_Player _playerData;
     [SerializeField] private D_Weapon _weaponData;
-
-    [SerializeField] private bool _combatEnabled;
     
     [SerializeField] private LayerMask _whatIsEnemy;
 
@@ -29,7 +27,7 @@ public class PlayerCombatController : MonoBehaviour
         attackDetails = new AttackDetails();
         attackDetails.position = player.attackbox.position;
         attackDetails.range = _weaponData.attackSize;
-        attackDetails.damageValue = _weaponData.damageValue;
+        attackDetails.damageValue = _weaponData.baseLightAttackDamageValue;
     }
 
     private void FixedUpdate()
@@ -39,6 +37,8 @@ public class PlayerCombatController : MonoBehaviour
             _attackCooldownWS += Time.deltaTime;
             if (_attackCooldownWS >= player._weaponData.lightAttackCooldown)
             {
+                _attackCooldownWS = 0;
+                player._isAttacking = false;
                 _isLightAttacking = false;
             }
         }
@@ -48,19 +48,16 @@ public class PlayerCombatController : MonoBehaviour
             _attackCooldownWS += Time.deltaTime;
             if (_attackCooldownWS >= player._weaponData.heavyAttackCooldown)
             {
+                _attackCooldownWS = 0;
+                player._isAttacking = false;
                 _isHeavyAttacking = false;
             }
         }
     }
 
-    public void AttackCooldown(float cooldown)
-    {
-
-    }
-
     public void OnLightAttack(InputAction.CallbackContext context)
     {
-        if (context.started && !_isLightAttacking)
+        if (context.started && !player._isAttacking && !_isLightAttacking)
         {
             TriggerLightAttack();
         }
@@ -68,7 +65,7 @@ public class PlayerCombatController : MonoBehaviour
 
     public void OnHeavyAttack(InputAction.CallbackContext context)
     {
-        if (context.started && !_isHeavyAttacking)
+        if (context.started && !player._isAttacking && !_isHeavyAttacking)
         {
             TriggerHeavyAttack();
         }
@@ -76,29 +73,61 @@ public class PlayerCombatController : MonoBehaviour
     
     private void TriggerLightAttack()
     {
+        Debug.Log("Light attack!");
+        player._isAttacking = true;
         _isLightAttacking = true;
-        Collider2D[] detectedColliders = Physics2D.OverlapBoxAll(attackDetails.position, new Vector2 (attackDetails.range, attackDetails.range), 0, _whatIsEnemy);
 
+        attackDetails.position = player.attackbox.position;
+        attackDetails.damageValue = player._weaponData.baseLightAttackDamageValue;
+
+        Collider2D[] detectedColliders = Physics2D.OverlapBoxAll(attackDetails.position, new Vector2 (attackDetails.range, attackDetails.range), 0, _whatIsEnemy);
         foreach (Collider2D collider in detectedColliders)
         {
-            collider.transform.SendMessage("Damaged", attackDetails);
+            if (detectedColliders == null)
+            {
+                break;
+            }
+            else
+            {
+                collider.transform.SendMessage("Damaged", attackDetails);
+            }
         }
     }
 
     private void TriggerHeavyAttack()
     {
         _isHeavyAttacking = true;
-        Collider2D[] detectedColliders = Physics2D.OverlapBoxAll(attackDetails.position, new Vector2(attackDetails.range, attackDetails.range), 0, _whatIsEnemy);
+        player._isAttacking = true;
 
+        attackDetails.position = player.attackbox.position;
+        attackDetails.damageValue = player._weaponData.baseHeavyAttackDamageValue;
+
+        Collider2D[] detectedColliders = Physics2D.OverlapBoxAll(attackDetails.position, new Vector2(attackDetails.range, attackDetails.range), 0, _whatIsEnemy);
         foreach (Collider2D collider in detectedColliders)
         {
-            collider.transform.SendMessage("Damaged", attackDetails);
+            if (detectedColliders == null)
+            {
+                break;
+            }
+            else
+            {
+                
+                collider.transform.SendMessage("Damaged", attackDetails);
+            }
         }
-
     }
+
 
     private void Damaged(AttackDetails attack)
     {
         player.Damaged(attack);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_isHeavyAttacking || _isLightAttacking)
+        {
+            Gizmos.DrawCube(attackDetails.position, new Vector3(attackDetails.range, attackDetails.range, attackDetails.range));
+        }
     }
 }

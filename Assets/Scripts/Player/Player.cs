@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     public Transform wallCheck;
     public Transform groundCheck;
 
+    public bool _isAttacking;
 
     public virtual void Start()
     {

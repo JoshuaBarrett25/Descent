@@ -68,9 +68,14 @@ public class PlayerMovementController : MonoBehaviour
     public void OnMove()
     {
         input = player.playerActions.Play.Move.ReadValue<Vector2>();
-        if (!_isDashing)
+        if (!_isDashing && !player._isAttacking)
         {
             player.rigid.velocity = new Vector2(input.x * playerData.speed, player.rigid.velocity.y);
+        }
+
+        else if (!_isDashing && player._isAttacking)
+        {
+            player.rigid.velocity = new Vector2(input.x * playerData.attackingWalkSpeed, player.rigid.velocity.y);
         }
 
         if (player.rigid.velocity.x > 0f && !player.facingRight)

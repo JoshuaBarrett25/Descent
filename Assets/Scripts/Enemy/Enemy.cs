@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     public Animator animator { get; private set; }
     public GameObject GO { get; private set; }
     public bool facingRight { get; private set; }
-    public Collider2D attackBox;
+    public Transform attackPosition;
     public AnimationToSM animToStateM { get; private set; }
 
     [Header("Position Refs")]

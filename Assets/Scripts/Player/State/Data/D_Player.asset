@@ -24,12 +24,13 @@ MonoBehaviour:
   health: 100
   stamina: 100
   playerLVL: 1
-  currentEXP: 100
-  totalEXP: 100
+  currentEXP: 0
+  totalEXP: 0
   gravityScale: 2
   minJumpingPower: 7
   maxJumpingPower: 17
   speed: 7
+  attackingWalkSpeed: 0
   dashSpeed: 19.5
   diveSpeed: -15
   DASHACQUIRED: 0

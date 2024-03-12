@@ -22,6 +22,7 @@ public class D_Player : ScriptableObject
     public float minJumpingPower = 7;
     public float maxJumpingPower = 17;
     public float speed = 7;
+    public float attackingWalkSpeed = 0.5f;
     public float dashSpeed = 11;
     public float diveSpeed = -15;
 
