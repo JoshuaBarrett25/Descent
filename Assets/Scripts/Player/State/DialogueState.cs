@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DialogueState : PlayerState
 {
-    protected D_DialogueState stateData;
+    protected D_PlayerDialogueState stateData;
 
-    public DialogueState(PlayerStateMachine psm, Player player, D_DialogueState stateData) : base(psm, player)
+    public DialogueState(PlayerStateMachine psm, Player player, D_PlayerDialogueState stateData) : base(psm, player)
     {
         this.stateData = stateData;
     }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: D_Weapon
   m_EditorClassIdentifier: 
   attackSize: 3
+  knockback: {x: 2, y: 0.1}
   baseLightAttackDamageValue: 20
   baseHeavyAttackDamageValue: 50
   lightAttackCooldown: 0.5

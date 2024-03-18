@@ -6,6 +6,9 @@ using UnityEngine;
 public class D_Weapon : ScriptableObject
 {
     public float attackSize = 3f;
+    public Vector2 knockback = new Vector2(0.0f,1f);
+    public float lightPoiseDamage = 20f;
+    public float heavyPoiseDamage = 80f;
 
     public float baseLightAttackDamageValue = 20f;
     public float baseHeavyAttackDamageValue = 50f;

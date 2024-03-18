@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEditor.Timeline;
 using System.Net.Sockets;
-using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -24,9 +23,9 @@ public class Player : MonoBehaviour
     public D_Weapon _weaponData;
     public D_Player _playerData;
     [SerializeField] private D_DefaultPlayerState _defaultPlayerStateData;
-    [SerializeField] private D_DialogueState _dialogueStateData;
-    [SerializeField] private D_CombatState _combatStateData;
-    [SerializeField] private D_DeathState _deathStateData;
+    [SerializeField] private D_PlayerDialogueState _dialogueStateData;
+    [SerializeField] private D_PlayerCombatState _combatStateData;
+    [SerializeField] private D_PlayerDeathState _deathStateData;
 
     [Header("Attacking Variables")]
     public Transform attackbox;
@@ -37,9 +36,11 @@ public class Player : MonoBehaviour
 
     public bool _isAttacking;
 
+
     public virtual void Start()
     {
         psm = new PlayerStateMachine();
+        gameObject.layer = LayerMask.NameToLayer("Player");
         defaultPlayerState = new DefaultPlayerState(psm, this, _defaultPlayerStateData);
         dialogueState = new DialogueState(psm, this, _dialogueStateData);
         combatState = new CombatState(psm, this, _combatStateData);

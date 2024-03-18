@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CombatState : PlayerState
 {
-    protected D_CombatState stateData;
+    protected D_PlayerCombatState stateData;
 
-    protected bool isPlayerInSafeArea;
+    protected bool isInteracting;
 
-    public CombatState(PlayerStateMachine psm, Player player, D_CombatState stateData) : base(psm, player)
+    public CombatState(PlayerStateMachine psm, Player player, D_PlayerCombatState stateData) : base(psm, player)
     {
         this.stateData = stateData;
     }
@@ -16,8 +16,7 @@ public class CombatState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
-        isPlayerInSafeArea = player.CheckSafeArea();
+        player.gameObject.layer = LayerMask.NameToLayer("Player");
     }
 
     public override void Exit()
@@ -28,17 +27,12 @@ public class CombatState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        isPlayerInSafeArea = player.CheckSafeArea();
 
-        if (!isPlayerInSafeArea) 
+        if (player._playerData.health <= 0)
         {
-            
+            psm.ChangeState(player.deathState);
         }
-        
-        else
-        {
-            //psm.ChangeState(player.SafeState);
-        }
+
     }
 
     public override void PhysicsUpdate()

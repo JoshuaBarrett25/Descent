@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLostState : State
+public class PlayerLostState : EnemyState
 {
     protected D_PlayerLostState stateData;
 

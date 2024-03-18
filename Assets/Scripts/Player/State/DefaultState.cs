@@ -23,8 +23,7 @@ public class DefaultPlayerState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Entering: Default Player State");
-        
+        psm.ChangeState(player.combatState);
     }
 
     public override void Exit()

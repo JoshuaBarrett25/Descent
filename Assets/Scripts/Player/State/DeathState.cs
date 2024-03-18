@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DeathState : PlayerState
 {
-    protected D_DeathState stateData;
+    protected D_PlayerDeathState stateData;
 
-    public DeathState(PlayerStateMachine psm, Player player, D_DeathState stateData) : base(psm, player)
+    public DeathState(PlayerStateMachine psm, Player player, D_PlayerDeathState stateData) : base(psm, player)
     {
         this.stateData = stateData;
     }
@@ -14,7 +14,9 @@ public class DeathState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
+        player.playerActions.Play.Disable();
+        player.playerActions.PauseMenu.Enable();
+        player.gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     public override void Exit()

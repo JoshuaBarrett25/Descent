@@ -21,7 +21,8 @@ MonoBehaviour:
   whatIsWall:
     serializedVersion: 2
     m_Bits: 512
-  health: 100
+  health: -140
+  maxHealth: 100
   stamina: 100
   playerLVL: 1
   currentEXP: 0
@@ -36,8 +37,6 @@ MonoBehaviour:
   DASHACQUIRED: 0
   DBLJUMPACQUIRED: 0
   DIVEACQUIRED: 0
-  dialogue: {fileID: 0}
-  interactRange: 0
   canSave: 0
   coyoteTime: 0.3
   jumpInterval: 0.05

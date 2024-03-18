@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Map : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Map : MonoBehaviour
 
     public PlayState playState { get; private set; }
     public PauseState pauseState { get; private set; }
+
+    public Player player;
 
     [Header("State Data Objects")]
     [SerializeField] private D_Map mapData;
@@ -22,6 +25,8 @@ public class Map : MonoBehaviour
     public GameObject playGroup;
     public GameObject pauseMenuGroup;
 
+    public Slider healthBarFill;
+
     public virtual void Awake()
     {
         playerActions = new PlayerActions();
@@ -32,6 +37,7 @@ public class Map : MonoBehaviour
         amm = new MapManager();
         playState = new PlayState(amm, this, playStateData);
         pauseState = new PauseState(amm, this, pauseStateData);
+        player = FindObjectOfType<Player>();
 
         amm.Init(playState);
     }

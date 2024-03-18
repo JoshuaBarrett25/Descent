@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationToSM : MonoBehaviour
 {
-    public AttackState attackState;
+    public EnemyAttackState attackState;
 
     private void TriggerAttack()
     {

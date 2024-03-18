@@ -11,7 +11,9 @@ public class D_Player : ScriptableObject
     public LayerMask whatIsWall;
 
     [Header("Stats")]
-    public float health = 3;
+    public float health = 100;
+    public float maxHealth = 100;
+
     public float stamina = 100;
     public int playerLVL = 1;
     public long currentEXP = 100;
@@ -32,8 +34,6 @@ public class D_Player : ScriptableObject
     public bool DIVEACQUIRED;
 
     [Header("Interactions")]
-    public DialogueTrigger dialogue;
-    public bool interactRange = false;
     public bool canSave = false;
 
     public float coyoteTime = 0.3f;

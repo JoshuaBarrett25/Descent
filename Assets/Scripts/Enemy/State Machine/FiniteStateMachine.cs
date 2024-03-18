@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class FiniteStateMachine
 {
-    public State currentState {  get; private set; }
+    public EnemyState currentState {  get; private set; }
 
-    public void Init(State startingState)
+    public void Init(EnemyState startingState)
     {
         currentState = startingState;
         currentState.Enter();
     }
 
-    public void ChangeState(State newState)
+    public void ChangeState(EnemyState newState)
     {
         currentState.Exit();
         currentState = newState;
