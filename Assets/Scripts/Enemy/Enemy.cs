@@ -16,13 +16,14 @@ public class Enemy : MonoBehaviour
     public int facingDirection {  get; private set; }
     public Rigidbody2D rigid { get; private set; }
     public Animator animator { get; private set; }
-    public GameObject gameObject { get; private set; }
+    public GameObject parent { get; private set; }
     public bool facingRight { get; private set; }
     public bool stunned { get; private set; }
     public Transform attackPosition;
     public AnimationToSM animToStateM { get; private set; }
 
     [Header("Position Refs")]
+    [SerializeField] private GameObject player;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
     [SerializeField] private Transform playerCheck;
@@ -34,6 +35,8 @@ public class Enemy : MonoBehaviour
     {
         facingDirection = 1;
 
+        parent = this.parent; 
+        player = transform.Find("Alive").gameObject;
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         animToStateM = GetComponent<AnimationToSM>();
@@ -124,11 +127,20 @@ public class Enemy : MonoBehaviour
     }
 
     public virtual void Flip(bool lookingAtTarget)
-    {
-
+    { 
         if (lookingAtTarget)
         {
-            
+            if (player.transform.position.x < parent.transform.position.x && facingDirection < -1)
+            {
+                facingDirection *= -1;
+                transform.Rotate(0f, 180f, 0f);
+            }
+
+            if (player.transform.position.x > parent.transform.position.x && facingDirection >= -1)
+            {
+                facingDirection *= -1;
+                transform.Rotate(0f, 180f, 0f);
+            }
         }
 
         else

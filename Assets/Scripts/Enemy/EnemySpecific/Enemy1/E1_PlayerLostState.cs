@@ -7,6 +7,7 @@ public class E1_PlayerLostState : PlayerLostState
     protected Enemy1 enemy1;
 
     protected float timerWS;
+    protected float lookTimerWS;
 
     public E1_PlayerLostState(Enemy enemy, FiniteStateMachine fsm, string animBoolName, D_PlayerLostState stateData, Enemy1 enemy1) : base(enemy, fsm, animBoolName, stateData, enemy1)
     {
@@ -16,6 +17,7 @@ public class E1_PlayerLostState : PlayerLostState
     public override void Enter()
     {
         base.Enter();
+        lookTimerWS = timerWS;  
     }
 
     public override void Exit()
