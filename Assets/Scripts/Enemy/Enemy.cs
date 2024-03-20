@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 
 public class Enemy : MonoBehaviour
 {
+
     public FiniteStateMachine stateMachine;
 
     public D_Enemy enemyData;
@@ -16,7 +17,6 @@ public class Enemy : MonoBehaviour
     public int facingDirection {  get; private set; }
     public Rigidbody2D rigid { get; private set; }
     public Animator animator { get; private set; }
-    public GameObject parent { get; private set; }
     public bool facingRight { get; private set; }
     public bool stunned { get; private set; }
     public Transform attackPosition;
@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Position Refs")]
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject parent;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
     [SerializeField] private Transform playerCheck;
@@ -35,8 +36,6 @@ public class Enemy : MonoBehaviour
     {
         facingDirection = 1;
 
-        parent = this.parent; 
-        player = transform.Find("Alive").gameObject;
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         animToStateM = GetComponent<AnimationToSM>();
@@ -126,24 +125,21 @@ public class Enemy : MonoBehaviour
         return Physics2D.Raycast(playerCheck.position, transform.right, enemyData.closeRangeActionDistance, enemyData.whatIsPlayer);
     }
 
-    public virtual void Flip(bool lookingAtTarget)
-    { 
-        if (lookingAtTarget)
-        {
-            if (player.transform.position.x < parent.transform.position.x && facingDirection < -1)
-            {
-                facingDirection *= -1;
-                transform.Rotate(0f, 180f, 0f);
-            }
+    public virtual void Flip()
+    {
+        facingDirection *= -1;
+        transform.Rotate(0f, 180f, 0f);
+    }
 
-            if (player.transform.position.x > parent.transform.position.x && facingDirection >= -1)
-            {
-                facingDirection *= -1;
-                transform.Rotate(0f, 180f, 0f);
-            }
+    public virtual void LookAtPlayerDirection()
+    {
+        if (player.transform.position.x < parent.transform.position.x && facingDirection < -1)
+        {
+            facingDirection *= -1;
+            transform.Rotate(0f, 180f, 0f);
         }
 
-        else
+        else if (player.transform.position.x > parent.transform.position.x && facingDirection >= -1)
         {
             facingDirection *= -1;
             transform.Rotate(0f, 180f, 0f);

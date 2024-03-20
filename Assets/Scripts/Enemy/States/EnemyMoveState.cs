@@ -8,7 +8,7 @@ public class EnemyMoveState : EnemyState
 
     protected bool isDetectingWall;
     protected bool isDetectingLedge;
-    protected bool isPlayerInMinAgroRange;
+    protected bool isPlayerInMaxAgroRange;
 
 
     public EnemyMoveState(FiniteStateMachine fsm, Enemy enemy, string animBoolName, D_EnemyMoveState stateData) : base(fsm, enemy, animBoolName)
@@ -23,7 +23,7 @@ public class EnemyMoveState : EnemyState
 
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
 
     }
 
@@ -43,6 +43,6 @@ public class EnemyMoveState : EnemyState
 
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
     }
 }

@@ -35,7 +35,7 @@ public class EnemyIdleState : EnemyState
 
         if (flipAfterIdle)
         {
-            enemy.Flip(false);
+            enemy.Flip();
         }
     }
 

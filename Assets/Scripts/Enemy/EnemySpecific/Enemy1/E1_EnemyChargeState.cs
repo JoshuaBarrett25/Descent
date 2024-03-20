@@ -25,18 +25,32 @@ public class E1_EnemyChargeState : EnemyChargeState
     {
         base.LogicUpdate();
         isPlayerInAttackRange = enemy.CheckPlayerInAttackRange();
+        enemy.LookAtPlayerDirection();
 
         if (isPlayerInAttackRange)
         {
             fsm.ChangeState(enemy1.meleeAttackState);
         }
 
+        //||
+        if (isDetectingWall)
+        {
+            Debug.Log("Detecting wall");
+            enemy.SetVelocity(0);
+        }
+
+        if (!isDetectingLedge)
+        {
+            Debug.Log("Detecting Ledge");
+            enemy.SetVelocity(0);
+        }
+
         if (!isDetectingWall || !isDetectingLedge)
         {
             if (!isPlayerInAttackRange)
             {
-                isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
-                if (!isPlayerInMinAgroRange)
+                isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+                if (!isPlayerInMaxAgroRange)
                 {
                     fsm.ChangeState(enemy1.playerLostState);
                 }
@@ -53,10 +67,5 @@ public class E1_EnemyChargeState : EnemyChargeState
     {
         base.PhysicsUpdate();
 
-    }
-
-    public void LookAtPlayer()
-    {
-       
     }
 }

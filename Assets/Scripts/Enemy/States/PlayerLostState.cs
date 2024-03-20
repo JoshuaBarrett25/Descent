@@ -35,4 +35,9 @@ public class PlayerLostState : EnemyState
     {
         base.PhysicsUpdate();
     }
+
+    public override void FinishAnim()
+    {
+        base.FinishAnim();
+    }
 }

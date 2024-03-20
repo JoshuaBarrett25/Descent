@@ -21,7 +21,7 @@ MonoBehaviour:
   whatIsWall:
     serializedVersion: 2
     m_Bits: 512
-  health: -140
+  health: 1999560
   maxHealth: 100
   stamina: 100
   playerLVL: 1

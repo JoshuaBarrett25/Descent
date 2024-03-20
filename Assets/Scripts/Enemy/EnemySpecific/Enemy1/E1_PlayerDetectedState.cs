@@ -32,7 +32,6 @@ public class E1_PlayerDetectedState : PlayerDetectedState
 
         if (!isPlayerInMaxAgroRange)
         {
-            timerWS = 0f;
             fsm.ChangeState(enemy1.playerLostState);
         }
 

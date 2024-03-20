@@ -21,6 +21,7 @@ public class EnemyState
 
     public virtual void Enter()
     {
+        enemy.animToStateM.enemyState = this;
         startTime = Time.time;
         enemy.animator.SetBool(animBoolName, true);
     }
@@ -36,6 +37,11 @@ public class EnemyState
     }
 
     public virtual void PhysicsUpdate()
+    {
+
+    }
+
+    public virtual void FinishAnim()
     {
 
     }

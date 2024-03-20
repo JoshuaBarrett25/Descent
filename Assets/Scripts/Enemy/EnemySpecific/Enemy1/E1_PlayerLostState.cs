@@ -7,6 +7,7 @@ public class E1_PlayerLostState : PlayerLostState
     protected Enemy1 enemy1;
 
     protected float timerWS;
+    protected float lookTimerInterval;
     protected float lookTimerWS;
 
     public E1_PlayerLostState(Enemy enemy, FiniteStateMachine fsm, string animBoolName, D_PlayerLostState stateData, Enemy1 enemy1) : base(enemy, fsm, animBoolName, stateData, enemy1)
@@ -17,7 +18,7 @@ public class E1_PlayerLostState : PlayerLostState
     public override void Enter()
     {
         base.Enter();
-        lookTimerWS = timerWS;  
+        lookTimerInterval = stateData.idleReturnTimer / 2; 
     }
 
     public override void Exit()
@@ -28,6 +29,11 @@ public class E1_PlayerLostState : PlayerLostState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
 
         if (isPlayerInMaxAgroRange)
         {
@@ -37,21 +43,21 @@ public class E1_PlayerLostState : PlayerLostState
 
         else if (!isPlayerInMaxAgroRange)
         {
-            if (timerWS <= stateData.idleReturnTimer)
-            {
-                timerWS += Time.deltaTime;
-            }
+            Debug.Log(lookTimerWS);
 
-            else
+            lookTimerWS += Time.deltaTime;
+            if (lookTimerWS >= lookTimerInterval)
             {
-                enemy1.idleState.SetFlipAfterIdle(false);
-                fsm.ChangeState(enemy1.idleState);
+                lookTimerWS = 0;
+                enemy.Flip();
             }
         }
     }
 
-    public override void PhysicsUpdate()
+    public override void FinishAnim()
     {
-        base.PhysicsUpdate();
+        base.FinishAnim();
+        enemy1.idleState.SetFlipAfterIdle(false);
+        fsm.ChangeState(enemy1.idleState);
     }
 }

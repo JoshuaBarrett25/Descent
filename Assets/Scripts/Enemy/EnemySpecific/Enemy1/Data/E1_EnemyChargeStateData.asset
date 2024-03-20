@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be0db4f35adf2548b32054c17634485, type: 3}
   m_Name: E1_EnemyChargeStateData
   m_EditorClassIdentifier: 
-  chargeSpeed: 5
+  chargeSpeed: 8

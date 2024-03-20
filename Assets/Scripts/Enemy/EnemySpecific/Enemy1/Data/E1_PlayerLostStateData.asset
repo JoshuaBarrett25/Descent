@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b0eca8959ae9541adad67783287e4b, type: 3}
   m_Name: E1_PlayerLostStateData
   m_EditorClassIdentifier: 
-  idleReturnTimer: 0.2
+  idleReturnTimer: 2

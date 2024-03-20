@@ -23,8 +23,8 @@ MonoBehaviour:
   movementSpeed: 7
   wallCheckDistance: 0.5
   ledgeCheckDistance: 0.6
-  maxAgroDistance: 4
-  minAgroDistance: 3
+  maxAgroDistance: 10
+  minAgroDistance: 2
   closeRangeActionDistance: 1
   whatIsGround:
     serializedVersion: 2
