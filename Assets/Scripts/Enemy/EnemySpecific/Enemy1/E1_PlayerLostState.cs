@@ -35,20 +35,20 @@ public class E1_PlayerLostState : PlayerLostState
     {
         base.PhysicsUpdate();
 
-        if (isPlayerInMaxAgroRange)
+        if (isPlayerSeen)
         {
             timerWS = 0;
+            Debug.Log("Player found again!");
             fsm.ChangeState(enemy1.playerDetectedState);
         }
 
-        else if (!isPlayerInMaxAgroRange)
+        else if (!isPlayerSeen)
         {
-            Debug.Log(lookTimerWS);
-
             lookTimerWS += Time.deltaTime;
             if (lookTimerWS >= lookTimerInterval)
             {
                 lookTimerWS = 0;
+                Debug.Log("Looking around...");
                 enemy.Flip();
             }
         }

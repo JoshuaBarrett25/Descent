@@ -8,6 +8,8 @@ public class EnemyMeleeAttackState : EnemyAttackState
     protected D_EnemyMeleeAttackState stateData;
     protected AttackDetails attackDetails;
 
+    protected bool isPlayerInMaxAgroRange;
+
     public EnemyMeleeAttackState(Enemy enemy, FiniteStateMachine fsm, string animBoolName, Transform attackPosition, D_EnemyMeleeAttackState stateData) : base(enemy, fsm, animBoolName, attackPosition)
     {
         this.stateData = stateData;
@@ -36,6 +38,7 @@ public class EnemyMeleeAttackState : EnemyAttackState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        Checks();
     }
 
     public override void TriggerAttack()
@@ -54,6 +57,12 @@ public class EnemyMeleeAttackState : EnemyAttackState
     public override void FinishAttack()
     {
         base.FinishAttack();
+        
     }
 
+    public override void Checks()
+    {
+        base.Checks();
+        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
+    }
 }

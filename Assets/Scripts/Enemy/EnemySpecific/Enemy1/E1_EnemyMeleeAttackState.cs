@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class E1_EnemyMeleeAttackState : EnemyMeleeAttackState
 {
@@ -30,15 +31,14 @@ public class E1_EnemyMeleeAttackState : EnemyMeleeAttackState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        Debug.Log(isAnimationFinished);
         if (isAnimationFinished)
         {
-            if (isPlayerInMinAgroRange)
+            if (isPlayerInMaxAgroRange)
             {
                 fsm.ChangeState(enemy1.chargeState);
             }
 
-            else
+            else if (!isPlayerSeen)
             {
                 fsm.ChangeState(enemy1.playerLostState);
             }

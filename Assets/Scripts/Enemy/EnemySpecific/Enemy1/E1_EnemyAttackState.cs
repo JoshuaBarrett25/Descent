@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class E1_EnemyAttackState : EnemyAttackState
 {
-
     public E1_EnemyAttackState(Enemy enemy, FiniteStateMachine fsm, string animBoolName, Transform attackPosition) : base(enemy, fsm, animBoolName, attackPosition)
     {
         

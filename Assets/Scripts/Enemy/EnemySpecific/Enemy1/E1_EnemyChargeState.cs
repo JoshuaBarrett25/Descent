@@ -24,39 +24,30 @@ public class E1_EnemyChargeState : EnemyChargeState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        isPlayerInAttackRange = enemy.CheckPlayerInAttackRange();
-        enemy.LookAtPlayerDirection();
 
         if (isPlayerInAttackRange)
         {
+            enemy.SetVelocity(0f);
             fsm.ChangeState(enemy1.meleeAttackState);
         }
 
-        //||
-        if (isDetectingWall)
+        if (isDetectingWall || !isDetectingLedge)
         {
-            Debug.Log("Detecting wall");
-            enemy.SetVelocity(0);
-        }
-
-        if (!isDetectingLedge)
-        {
-            Debug.Log("Detecting Ledge");
-            enemy.SetVelocity(0);
+            enemy.SetVelocity(0f);
         }
 
         if (!isDetectingWall || !isDetectingLedge)
         {
             if (!isPlayerInAttackRange)
             {
-                isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
-                if (!isPlayerInMaxAgroRange)
+                if (!isPlayerInDetectionZone)
                 {
                     fsm.ChangeState(enemy1.playerLostState);
                 }
 
-                else if (isPlayerInMinAgroRange)
+                else if (isPlayerSeen)
                 {
+                    Debug.Log("Charging!");
                     enemy.SetVelocity(stateData.chargeSpeed);
                 }
             }

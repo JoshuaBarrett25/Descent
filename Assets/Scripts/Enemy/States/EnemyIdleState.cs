@@ -10,7 +10,7 @@ public class EnemyIdleState : EnemyState
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
 
-    protected bool isPlayerInMinAgroRange;
+    protected bool isPlayerSeen;
 
     protected float idleTime;
 
@@ -19,13 +19,18 @@ public class EnemyIdleState : EnemyState
         this.stateData = stateData;
     }
 
+    public override void Checks()
+    {
+        base.Checks();
+        isPlayerSeen = enemy.CheckPlayerSeen();
+    }
+
     public override void Enter()
     {
         base.Enter();
-
+        Checks();
         enemy.SetVelocity(0f);
         isIdleTimeOver = false;
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
         SetRandomIdleTime();
     }
                                
@@ -42,10 +47,8 @@ public class EnemyIdleState : EnemyState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        Debug.Log("Logic!");
         if (Time.time >= startTime + idleTime)
         {
-            Debug.Log("Exiting idle!");
             isIdleTimeOver = true;
         }
     }
@@ -53,7 +56,7 @@ public class EnemyIdleState : EnemyState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        Checks();
     }
 
     public void SetFlipAfterIdle(bool flip)

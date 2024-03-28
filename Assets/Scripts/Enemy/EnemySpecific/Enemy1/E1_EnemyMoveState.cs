@@ -25,7 +25,7 @@ public class E1_EnemyMoveState : EnemyMoveState
     {
         base.LogicUpdate();
 
-        if (isPlayerInMaxAgroRange)
+        if (isPlayerSeen)
         {
             fsm.ChangeState(enemy1.playerDetectedState);
         }

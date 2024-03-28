@@ -9,7 +9,7 @@ public class EnemyAttackState : EnemyState
     protected Transform attackPosition;
 
     protected bool isAnimationFinished;
-    protected bool isPlayerInMinAgroRange;
+    protected bool isPlayerSeen;
 
     public EnemyAttackState(Enemy enemy, FiniteStateMachine fsm,string animBoolName, Transform attackPosition) : base(fsm, enemy, animBoolName)
     {
@@ -32,13 +32,12 @@ public class EnemyAttackState : EnemyState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        Checks();
     }
 
     public override void TriggerAttack()
@@ -49,5 +48,11 @@ public class EnemyAttackState : EnemyState
     public virtual void FinishAttack()
     {
         isAnimationFinished = true;
+    }
+
+    public override void Checks()
+    {
+        base.Checks();
+        isPlayerSeen = enemy.CheckPlayerSeen();
     }
 }

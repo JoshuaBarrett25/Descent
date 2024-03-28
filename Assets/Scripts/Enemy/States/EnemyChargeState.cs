@@ -9,6 +9,8 @@ public class EnemyChargeState : EnemyState
     protected bool isPlayerInAttackRange;
     protected bool isPlayerInMinAgroRange;
     protected bool isPlayerInMaxAgroRange;
+    protected bool isPlayerInDetectionZone;
+    protected bool isPlayerSeen;
     protected bool isDetectingLedge;
     protected bool isDetectingWall;
 
@@ -19,16 +21,23 @@ public class EnemyChargeState : EnemyState
         this.stateData = stateData;
     }
 
+    public override void Checks()
+    {
+        base.Checks();
+        isPlayerInAttackRange = enemy.CheckPlayerInAttackRange();
+        isPlayerSeen = enemy.CheckPlayerSeen();
+        isDetectingLedge = enemy.CheckLedge();
+        isDetectingWall = enemy.CheckWall();
+        isPlayerInDetectionZone = enemy.CheckPlayerInDetectionRadius();
+        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
+    }
+
     public override void Enter()
     {
         base.Enter();
-
-        isPlayerInAttackRange = enemy.CheckPlayerInAttackRange();
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
-        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
-        isDetectingLedge = enemy.CheckLedge();
-        isDetectingWall = enemy.CheckWall();
-        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
+        Checks();
         enemy.SetVelocity(stateData.chargeSpeed);
     }
 
@@ -40,16 +49,11 @@ public class EnemyChargeState : EnemyState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        Checks();
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        isPlayerInAttackRange = enemy.CheckPlayerInAttackRange();
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
-        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
-        isDetectingLedge = enemy.CheckLedge();
-        isDetectingWall = enemy.CheckWall();
-        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
     }
 }

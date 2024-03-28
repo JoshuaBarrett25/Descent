@@ -10,7 +10,6 @@ public class E1_EnemyIdleState : EnemyIdleState
     {
         this.enemy1 = enemy1;
     }
-
     public override void Enter()
     {
         base.Enter();
@@ -25,16 +24,15 @@ public class E1_EnemyIdleState : EnemyIdleState
     {
         base.LogicUpdate();
 
-        if (isPlayerInMinAgroRange)
+        if (isPlayerSeen)
         {
             fsm.ChangeState(enemy1.playerDetectedState);
-        }
+        }   
 
         else if (isIdleTimeOver)
         {
             fsm.ChangeState(enemy1.moveState);
         }
-
     }
 
     public override void PhysicsUpdate()

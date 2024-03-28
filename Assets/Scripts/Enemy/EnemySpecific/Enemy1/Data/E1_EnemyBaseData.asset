@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37acd60231c887248a1efb7b5f60cadb, type: 3}
   m_Name: E1_EnemyBaseData
   m_EditorClassIdentifier: 
-  health: 100
+  health: -90
   attackSpeed: 1
   attackDistance: 0.8
   attackSize: 2
@@ -25,6 +25,7 @@ MonoBehaviour:
   ledgeCheckDistance: 0.6
   maxAgroDistance: 10
   minAgroDistance: 2
+  detectionAngle: 100
   closeRangeActionDistance: 1
   whatIsGround:
     serializedVersion: 2

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -5,7 +6,9 @@ using Unity.IO.LowLevel.Unsafe;
 using UnityEditor;
 using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
@@ -31,6 +34,7 @@ public class Enemy : MonoBehaviour
 
     private Vector2 velocityWS;
     private float currentPoise;
+    private bool playerSeen;
 
     public virtual void Start()
     {
@@ -42,16 +46,24 @@ public class Enemy : MonoBehaviour
         currentPoise = enemyData.totalPoise;
 
         stateMachine = new FiniteStateMachine();
+
+        StartCoroutine("DelaySearch", 0.2f);
+
     }
 
     public virtual void Update()
     {
         stateMachine.currentState.LogicUpdate();
+        Debug.Log(facingDirection);
     }
 
     public virtual void FixedUpdate()
     {
         stateMachine.currentState.PhysicsUpdate();
+        if (playerSeen)
+        {
+            LookAtPlayerDirection();
+        }
     }
 
     public void Knockback(AttackDetails attackDetails, bool stun)
@@ -91,7 +103,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void ChaseTarget(float velocity)
     {
-        velocityWS.Set(velocity, rigid.velocity.y);
+        velocityWS.Set(facingDirection * velocity, rigid.velocity.y);
         rigid.velocity = velocityWS;
     }
 
@@ -108,6 +120,11 @@ public class Enemy : MonoBehaviour
     public virtual bool CheckPlayerInMinAgroRange()
     {
         return Physics2D.Raycast(playerCheck.position, transform.right, enemyData.minAgroDistance, enemyData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInDetectionRadius()
+    {
+        return Physics2D.CircleCast(playerCheck.position, enemyData.maxAgroDistance, transform.forward, enemyData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInMaxAgroRange()
@@ -133,14 +150,16 @@ public class Enemy : MonoBehaviour
 
     public virtual void LookAtPlayerDirection()
     {
-        if (player.transform.position.x < parent.transform.position.x && facingDirection < -1)
+        if (player.transform.position.x < parent.transform.position.x && facingDirection > 0)
         {
+            Debug.Log("Flipping left");
             facingDirection *= -1;
             transform.Rotate(0f, 180f, 0f);
         }
 
-        else if (player.transform.position.x > parent.transform.position.x && facingDirection >= -1)
+        else if (player.transform.position.x > parent.transform.position.x && facingDirection < 0)
         {
+            Debug.Log("Flipping right");
             facingDirection *= -1;
             transform.Rotate(0f, 180f, 0f);
         }
@@ -153,8 +172,72 @@ public class Enemy : MonoBehaviour
 
     public virtual void OnDrawGizmos()
     {
+
+
         Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.wallCheckDistance));
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * enemyData.ledgeCheckDistance));
         Gizmos.DrawLine(playerCheck.position, playerCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.attackDistance));
+    }
+
+    public virtual bool CheckPlayerSeen()
+    {
+        return playerSeen;
+    }
+
+    IEnumerator DelaySearch(float delay)
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(delay);
+            Debug.Log("Searching...");
+            DetectPlayer();
+        }
+    }
+
+    public virtual bool DetectPlayer()
+    {
+        Collider2D targetInViewRadius = Physics2D.OverlapCircle(playerCheck.transform.position, enemyData.maxAgroDistance, enemyData.whatIsPlayer);
+
+        if (targetInViewRadius != null)
+        {
+            Debug.Log("Something...");
+            Transform target = targetInViewRadius.transform;
+            Vector2 dirToTarget = (target.position - playerCheck.transform.position).normalized;
+            if (Vector2.Angle(playerCheck.transform.forward, dirToTarget) < enemyData.detectionAngle / 2)
+            {
+                Debug.Log("Something........");
+                float dstToTarget = Vector2.Distance(playerCheck.transform.position, target.position);
+
+                if (!Physics2D.Raycast(playerCheck.transform.position, dirToTarget, dstToTarget, enemyData.whatIsGround))
+                {
+                    Debug.Log("Player Found");
+                    return playerSeen = true;
+                }
+
+                else
+                {
+                    return playerSeen = false;
+                }
+            }
+            else
+            {
+                return playerSeen = false;
+            }
+        }
+
+        else
+        {
+            return playerSeen = false;
+        }
+    }
+
+
+    public virtual Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
+    {
+        if (!angleIsGlobal)
+        {
+            angleInDegrees += transform.eulerAngles.y;
+        }
+        return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 }

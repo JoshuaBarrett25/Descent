@@ -30,12 +30,7 @@ public class E1_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if (!isPlayerInMaxAgroRange)
-        {
-            fsm.ChangeState(enemy1.playerLostState);
-        }
-
-        else if (isPlayerInMaxAgroRange)
+        if (isPlayerSeen)
         {
             if (timerWS <= stateData.detectionTime)
             {
@@ -44,9 +39,17 @@ public class E1_PlayerDetectedState : PlayerDetectedState
 
             else
             {
+                Debug.Log("Switching to charge state");
                 fsm.ChangeState(enemy1.chargeState);
             }
         }
+
+        if (!isPlayerSeen)
+        {
+            Debug.Log("Switching to player lost state");
+            fsm.ChangeState(enemy1.playerLostState);
+        }
+
     }
 
     public override void PhysicsUpdate()

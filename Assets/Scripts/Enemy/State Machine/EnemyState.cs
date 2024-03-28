@@ -14,10 +14,10 @@ public class EnemyState
 
     public EnemyState(FiniteStateMachine fsm, Enemy enemy, string animBoolName)
     {
-        this.fsm = fsm; 
+        this.fsm = fsm;
         this.enemy = enemy;
         this.animBoolName = animBoolName;
-    }   
+    }
 
     public virtual void Enter()
     {
@@ -37,6 +37,11 @@ public class EnemyState
     }
 
     public virtual void PhysicsUpdate()
+    {
+
+    }
+
+    public virtual void Checks()
     {
 
     }
